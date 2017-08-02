@@ -1,4 +1,6 @@
 import org.junit.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import static org.junit.Assert.*;
 
@@ -7,24 +9,25 @@ import static org.junit.Assert.*;
  */
 public class LoginPageTest extends BaseTest {
 
-    private String username = "ffportal";
-    private String password = "fusion";
-    private String customerId = "14301";
+    private By logInDiv = By.id("ff-login");
+    private By failedLoginError = By.xpath("//div[contains(text(), 'Invalid username/password/customerId combination.')]");
+
 
     @Test
-    public void logInTest() throws Exception {
+    public void validLogInTest() throws Exception {
         LoginPage loginPage = new LoginPage(driver);
         loginPage.getOnPage();
-        loginPage.logIn(username, password, customerId);
+        loginPage.logIn(validUsername, validPassword, validCustomerId);
+        wait.until(ExpectedConditions.titleIs(FieldAndFacilitiesPage.getExpectedPageTitle()));
+        assertEquals(FieldAndFacilitiesPage.getExpectedPageTitle(), driver.getTitle());
     }
 
     @Test
-    public void navigateWithinFieldAndFacilitiesPageTest() throws Exception {
+    public void invalidLogInTest() throws Exception {
         LoginPage loginPage = new LoginPage(driver);
         loginPage.getOnPage();
-        FieldAndFacilitiesPage fieldAndFacilitiesPage = loginPage.logIn(username, password, customerId);
-        fieldAndFacilitiesPage.checkAllActiveNotamsSelected();
-        fieldAndFacilitiesPage.switchToAirportPair();
+        loginPage.logIn(randomString(8), randomString(8), randomString(8));
+        wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(failedLoginError));
+        assertEquals(LoginPage.getExpectedPageTitle(), driver.getTitle());
     }
-
 }

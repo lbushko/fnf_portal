@@ -12,30 +12,25 @@ import static org.junit.Assert.assertTrue;
 public class FieldAndFacilitiesPage extends BasePage {
 
     private By topBinding = By.xpath("//h1[contains(@class, 'ng-binding')]");
-
-    private By sidePanelAllActiveLink = By.xpath("//ul[contains(@class, 'navbar-nav')][2]/li[contains(text(), 'ALL ACTIVE')]");
-    private By sidePanelAirportPairLink = By.xpath("//ul[contains(@class, 'navbar-nav')][2]/li/a[contains(text(), 'AIRPORT PAIR')]");
-
-    private By sidePanelLi = By.xpath("//ul[contains(@class, 'navbar-nav')][2]/li[contains(@class, 'selected')]");
-
-    public static String pageTitle = "WSI° Field & Facilities";
-
-    public static String getPageTitle() {return pageTitle;}
+    private String sidePanelCategoryLink = "//ul[contains(@class, 'navbar-nav')][2]//a[text()='%s']";
+    private By selectedSidePanelLi = By.xpath("//ul[contains(@class, 'navbar-nav')][2]/li[contains(@class, 'selected')]");
+    public static String expectedPageTitle = "WSI° Field & Facilities";
+    public static String getExpectedPageTitle() {return expectedPageTitle;}
 
     public FieldAndFacilitiesPage(WebDriver driver) {super(driver);}
 
-    public void checkAllActiveNotamsSelected() {
-        assertThat(driver.findElement(topBinding).getText(), containsString("ALL ACTIVE NOTAMS"));
-        assertThat(driver.findElement(sidePanelLi).getText(), containsString("ALL ACTIVE"));
+
+    public void checkSidePanelSelected(String category) {
+        if (category.equals("Archive")) {
+            assertThat(driver.findElement(topBinding).getText(), containsString(String.format("%sD COMPANY NOTAMS", category).toUpperCase()));
+        } else {
+            assertThat(driver.findElement(topBinding).getText(), containsString(String.format("%s NOTAMS", category).toUpperCase()));
+        }
+        assertThat(driver.findElement(selectedSidePanelLi).getText(), containsString(category.toUpperCase()));
     }
 
-    public void checkAirPortPairSelected() {
-        assertThat(driver.findElement(topBinding).getText(), containsString("AIRPORT PAIR NOTAMS"));
-        assertThat(driver.findElement(sidePanelLi).getText(), containsString("AIRPORT PAIR"));
-    }
-
-    public void switchToAirportPair() {
-        driver.findElement(sidePanelAirportPairLink).click();
-        checkAirPortPairSelected();
+    public void switchTo(String category) {
+        driver.findElement(By.xpath(String.format(sidePanelCategoryLink, category))).click();
+        checkSidePanelSelected(category);
     }
 }

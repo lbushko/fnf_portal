@@ -11,7 +11,7 @@ public class BasePage {
 
     protected WebDriver driver;
     protected WebDriverWait wait;
-    protected static String pageTitle;
+    protected static String expectedPageTitle;
 
     public BasePage(WebDriver driver) {
         this.driver = driver;
@@ -20,7 +20,7 @@ public class BasePage {
         wait = new WebDriverWait(driver, 10);
     }
 
-    public static String getPageTitle() {return pageTitle;}
+    public static String getExpectedPageTitle() {return expectedPageTitle;}
 
     public boolean isElementPresent(By locatorKey) {
         try {

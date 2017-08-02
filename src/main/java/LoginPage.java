@@ -11,7 +11,7 @@ import static org.junit.Assert.assertTrue;
 public class LoginPage extends BasePage {
 
     private String basePageUrl = "https://admin-dev.flightfx.com/fnfportal";
-    private static String pageTitle = "WSI° Field & Facilities Login";
+    private static String expectedPageTitle = "WSI° Field & Facilities Login";
 
     private By nameInput = By.name("username");
     private By passwordInput = By.name("password");
@@ -23,25 +23,24 @@ public class LoginPage extends BasePage {
         super(driver);
     }
 
-    public static String getPageTitle() {return pageTitle;}
+    public static String getExpectedPageTitle() {return expectedPageTitle;}
 
     public LoginPage getOnPage() {
         driver.get(basePageUrl + "/login.html");
-        assertEquals(LoginPage.getPageTitle(), driver.getTitle());
+        assertEquals(LoginPage.getExpectedPageTitle(), driver.getTitle());
         assertTrue(driver.findElement(logInDiv).isDisplayed());
         return new LoginPage(driver);
     }
 
 
-    public FieldAndFacilitiesPage logIn(String username, String password, String customerId) {
+    public void logIn(String username, String password, String customerId) {
         wait.until(ExpectedConditions.presenceOfElementLocated(logInDiv));
         driver.findElement(nameInput).sendKeys(username);
         driver.findElement(passwordInput).sendKeys(password);
         driver.findElement(customerIdInput).sendKeys(customerId);
         driver.findElement(logInButton).click();
-        wait.until(ExpectedConditions.invisibilityOf(driver.findElement(logInDiv)));
-        wait.until(ExpectedConditions.titleIs(FieldAndFacilitiesPage.getPageTitle()));
-        return new FieldAndFacilitiesPage(driver);
+//        wait.until(ExpectedConditions.invisibilityOf(driver.findElement(logInDiv)));
+//        wait.until(ExpectedConditions.titleIs(FieldAndFacilitiesPage.getExpectedPageTitle()));
     }
 
 
