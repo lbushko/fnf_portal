@@ -39,9 +39,6 @@ public class LoginPage extends BasePage {
         driver.findElement(passwordInput).sendKeys(password);
         driver.findElement(customerIdInput).sendKeys(customerId);
         driver.findElement(logInButton).click();
-//        wait.until(ExpectedConditions.invisibilityOf(driver.findElement(logInDiv)));
-//        wait.until(ExpectedConditions.titleIs(FieldAndFacilitiesPage.getExpectedPageTitle()));
     }
-
 
 }

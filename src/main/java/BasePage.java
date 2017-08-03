@@ -1,5 +1,6 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.concurrent.TimeUnit;
@@ -29,5 +30,13 @@ public class BasePage {
         } catch (org.openqa.selenium.NoSuchElementException e) {
             return false;
         }
+    }
+
+    protected void waitFor(By by) {
+        wait.until(ExpectedConditions.visibilityOf(driver.findElement(by)));
+    }
+
+    protected void clickOn(By by) {
+        driver.findElement(by).click();
     }
 }

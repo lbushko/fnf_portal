@@ -6,6 +6,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.security.SecureRandom;
 
+
 /**
  * Created by ashendri on 01.08.2017.
  */
@@ -26,10 +27,10 @@ public class BaseTest {
         wait = new WebDriverWait(driver, 10);
     }
 
-    @After
-    public void tearDown() throws Exception {
-        driver.quit();
-    }
+//    @After
+//    public void tearDown() throws Exception {
+//        driver.quit();
+//    }
 
     protected String randomString( int len ){
         StringBuilder sb = new StringBuilder( len );
@@ -38,9 +39,6 @@ public class BaseTest {
         return sb.toString();
     }
 
-//    protected void print(String vals) {
-//        for (String val : vals) {
-//            System.out.println(val);
-//        }
-//    }
+
+
 }
