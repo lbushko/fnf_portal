@@ -28,10 +28,10 @@ public class BaseTest {
         wait = new WebDriverWait(driver, 10);
     }
 
-    @AfterClass
-    public void tearDown() throws Exception {
-        driver.quit();
-    }
+//    @AfterClass
+//    public void tearDown() throws Exception {
+//        driver.quit();
+//    }
 
     protected String randomString( int len ){
         StringBuilder sb = new StringBuilder( len );
