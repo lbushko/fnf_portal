@@ -8,9 +8,7 @@ import java.util.List;
 /**
  * Created by ashendri on 02.08.2017.
  */
-public class FieldAndFacilitiesPageTest extends BaseTest {
-
-    static List<String> sidePanelCategories = Arrays.asList("All Active", "Airport Pair", "Airframe", "Equipment", "Flight", "Airport", "General", "Archive");
+public class FieldAndFacilitiesPageNavigationTest extends BaseTest {
 
     @Test
     public void navigateWithinFieldAndFacilitiesPageTest() throws Exception {
@@ -28,21 +26,4 @@ public class FieldAndFacilitiesPageTest extends BaseTest {
             fieldAndFacilitiesPage.compareNotamsSidePanelAndTable(sidePanelCategories.get(i));
         }
     }
-
-    @Test
-    public void addNotamTest() throws Exception {
-        LoginPage loginPage = new LoginPage(driver);
-        loginPage.getOnPage();
-        loginPage.logIn(validUsername, validPassword, validCustomerId);
-        FieldAndFacilitiesPage fieldAndFacilitiesPage = new FieldAndFacilitiesPage(driver);
-
-        fieldAndFacilitiesPage.checkSidePanelSelected(sidePanelCategories.get(0));
-
-        AddNotamFunctionality addNotamFunctionality = new AddNotamFunctionality(driver);
-
-        addNotamFunctionality.addNotam("airport", "foqa");
-
-    }
-
-
 }

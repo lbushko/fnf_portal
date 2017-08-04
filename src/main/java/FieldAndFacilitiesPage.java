@@ -43,7 +43,4 @@ public class FieldAndFacilitiesPage extends BasePage {
             assertEquals(Integer.parseInt(driver.findElement(By.xpath(String.format(sidePanelCategoryLink + "/span", category))).getText()), driver.findElements(dataRow).size());
         }
     }
-
-
-
 }
