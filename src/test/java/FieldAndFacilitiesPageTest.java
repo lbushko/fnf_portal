@@ -1,8 +1,5 @@
-import org.junit.Test;
-
-import java.util.ArrayList;
+import org.testng.annotations.Test;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 
 /**
