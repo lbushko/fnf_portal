@@ -20,7 +20,8 @@ public class AddNotamFunctionality extends BasePage {
     private String authorizersDropdown = "//ul/li/a[contains(text(), '%s')]";
     private By notamTextInput = By.xpath("//textarea[@name='text']");
     private String dataRow = "(//div[contains(@class, 'ui-grid-row')])[%d]";
-    private String addEquipmentButton = "(//button[text()='add equipment...'])[%d]";
+//    private String addEquipmentButton = "(//button[text()='add equipment...'])[%d]";
+    private String addEquipmentButton = "(//div[contains(@class, 'ui-grid-row')]//button)[%d]";
     private String equipmentsTable = "//tbody[contains(@class, 'mini-grid-scroller')]";
     private By updateEquipmentButton = By.xpath("//button[text()='Update']");
     private By publishButton = By.xpath("//button[text()='Publish']");
@@ -54,16 +55,16 @@ public class AddNotamFunctionality extends BasePage {
         return notamText;
     }
 
-    public void selectAirports() {
+    public void selectDataRow() {
         int number;
-        if (this.category.equals("AIRPORT")) { number = 1; } else { number = 2; }
+        if (this.category.equals("AIRPORT PAIR")) { number = 2; } else { number = 1; }
         dataRow = String.format(dataRow, number);
         waitFor(By.xpath(dataRow));
         clickOn(By.xpath(dataRow));
     }
 
-    public String addEquipment() {
-        callSelectEquipmentFunctionality();
+    public String selectDataRowFromSecondaryPanel() {
+        callSecondaryPanel();
         String equipmentName = driver.findElement(By.xpath(equipmentsTable + "//td")).getText();
         clickOn(By.xpath(equipmentsTable + "//td"));
         clickOn(updateEquipmentButton);
@@ -79,9 +80,9 @@ public class AddNotamFunctionality extends BasePage {
         assertTrue(isElementPresent(notamCreatedAlert));
     }
 
-    private void callSelectEquipmentFunctionality() {
+    private void callSecondaryPanel() {
         int number;
-        if (this.category.equals("AIRPORT")) { number = 1; } else { number = 2; }
+        if (this.category.equals("AIRPORT PAIR")) { number = 2; } else { number = 1; }
         waitFor(By.xpath(String.format(addEquipmentButton, number)));
         clickOn(By.xpath(String.format(addEquipmentButton, number)));
         waitFor(By.xpath(equipmentsTable));
