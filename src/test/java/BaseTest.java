@@ -5,12 +5,16 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
 
 import java.security.SecureRandom;
+import java.util.Arrays;
+import java.util.List;
 
 
 /**
  * Created by ashendri on 01.08.2017.
  */
 public class BaseTest {
+
+    static List<String> sidePanelCategories = Arrays.asList("All Active", "Airport Pair", "Airframe", "Equipment", "Flight", "Airport", "General", "Archive");
 
     protected String validUsername = "ffportal";
     protected String validPassword = "fusion";
@@ -28,10 +32,10 @@ public class BaseTest {
         wait = new WebDriverWait(driver, 10);
     }
 
-//    @AfterClass
-//    public void tearDown() throws Exception {
-//        driver.quit();
-//    }
+    @AfterClass
+    public void tearDown() throws Exception {
+        driver.quit();
+    }
 
     protected String randomString( int len ){
         StringBuilder sb = new StringBuilder( len );
@@ -40,6 +44,10 @@ public class BaseTest {
         return sb.toString();
     }
 
-
-
+    protected FieldAndFacilitiesPage logIn() {
+        LoginPage loginPage = new LoginPage(driver);
+        loginPage.getOnPage();
+        loginPage.logIn(validUsername, validPassword, validCustomerId);
+        return new FieldAndFacilitiesPage(driver);
+    }
 }

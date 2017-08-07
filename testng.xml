@@ -4,7 +4,8 @@
 <suite name="web.ui" parallel="classes" thread-count="2">
     <test name="all">
         <classes>
-            <class name="FieldAndFacilitiesPageTest"></class>
+            <class name="AddNotamTest"></class>
+            <class name="FieldAndFacilitiesPageNavigationTest"></class>
             <class name="LoginPageTest"></class>
         </classes>
     </test>

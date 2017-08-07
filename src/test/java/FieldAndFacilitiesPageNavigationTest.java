@@ -1,13 +1,9 @@
 import org.testng.annotations.Test;
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * Created by ashendri on 02.08.2017.
  */
-public class FieldAndFacilitiesPageTest extends BaseTest {
-
-    static List<String> sidePanelCategories = Arrays.asList("All Active", "Airport Pair", "Airframe", "Equipment", "Flight", "Airport", "General", "Archive");
+public class FieldAndFacilitiesPageNavigationTest extends BaseTest {
 
     @Test
     public void navigateWithinFieldAndFacilitiesPageTest() throws Exception {
@@ -27,21 +23,6 @@ public class FieldAndFacilitiesPageTest extends BaseTest {
     }
 
     @Test
-    public void addNotamTest() throws Exception {
-        LoginPage loginPage = new LoginPage(driver);
-        loginPage.getOnPage();
-        loginPage.logIn(validUsername, validPassword, validCustomerId);
-        FieldAndFacilitiesPage fieldAndFacilitiesPage = new FieldAndFacilitiesPage(driver);
-
-        fieldAndFacilitiesPage.checkSidePanelSelected(sidePanelCategories.get(0));
-
-        AddNotamFunctionality addNotamFunctionality = new AddNotamFunctionality(driver);
-
-        addNotamFunctionality.addNotam("airport", "foqa");
-
-    }
-
-    @Test
     public void sortNotamTest() throws Exception {
         LoginPage loginPage = new LoginPage(driver);
         loginPage.getOnPage();
@@ -49,10 +30,9 @@ public class FieldAndFacilitiesPageTest extends BaseTest {
         FieldAndFacilitiesPage fieldAndFacilitiesPage = new FieldAndFacilitiesPage(driver);
 
         for (int i = 0; i < sidePanelCategories.size(); i++) {
-            System.out.println("Назва розділу: "+sidePanelCategories.get(i));
+            System.out.println("Назва розділу: " + sidePanelCategories.get(i));
             fieldAndFacilitiesPage.switchTo(sidePanelCategories.get(i));
             fieldAndFacilitiesPage.ckeckSorting();
         }
     }
-
 }

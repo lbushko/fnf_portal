@@ -1,20 +1,15 @@
-import com.google.common.collect.Comparators;
-import com.google.common.collect.Ordering;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
 
 /**
  * Created by ashendri on 01.08.2017.
@@ -31,9 +26,14 @@ public class FieldAndFacilitiesPage extends BasePage {
     private String columData = "//div[@class='ui-grid-canvas']/div/div/div['%s']/div";
 
     public static String expectedPageTitle = "WSI° Field & Facilities";
-    public static String getExpectedPageTitle() {return expectedPageTitle;}
 
-    public FieldAndFacilitiesPage(WebDriver driver) {super(driver);}
+    public static String getExpectedPageTitle() {
+        return expectedPageTitle;
+    }
+
+    public FieldAndFacilitiesPage(WebDriver driver) {
+        super(driver);
+    }
 
 
     public void switchTo(String category) {
@@ -58,12 +58,12 @@ public class FieldAndFacilitiesPage extends BasePage {
         }
     }
 
-    public void ckeckSorting(){
+    public void ckeckSorting() {
 
         wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(gridHeader));
         List<WebElement> columns = driver.findElements(gridHeader);
 
-        int count=1;
+        int count = 1;
 
         for (WebElement header : columns
                 ) {
@@ -81,7 +81,7 @@ public class FieldAndFacilitiesPage extends BasePage {
 
                 for (String s : strings
                         ) {
-                    System.out.println("Actual: "+s);
+                    System.out.println("Actual: " + s);
                 }
 
                 List<String> tmp = strings;
@@ -89,7 +89,7 @@ public class FieldAndFacilitiesPage extends BasePage {
 
                 for (String s : tmp
                         ) {
-                    System.out.println("Expected: "+s);
+                    System.out.println("Expected: " + s);
                 }
 
                 Assert.assertEquals(tmp, strings);
