@@ -31,6 +31,8 @@ public class AddNotamFunctionality extends BasePage {
     private By expiresInButton = By.xpath("//button[@class='btn btn-default dropdown-toggle ng-binding ng-scope']");
     private String expiresInDropDown = "//ul[@aria-labelledby='dropdown-expireIn']//li";
     private By startDateField = By.name("startDate");
+    private By startDateCalendarButton = By.xpath("//div[@class='row form-fields ng-scope']/div[@class='form-field date-time col-xs-3'][1]//button[@class='btn btn-default']");
+    private String startDateCalendarDay = "//table[@role='grid']/tbody/tr[%d]/td[%d]";
 
     public AddNotamFunctionality(WebDriver driver) {super(driver);}
 
@@ -97,10 +99,9 @@ public class AddNotamFunctionality extends BasePage {
     }
 
     public void selectStartDate(){
-        waitFor(startDateField);
-        WebElement startDate = driver.findElement(startDateField);
-        startDate.clear();
-        startDate.sendKeys(getStartDate());
+        waitFor(startDateCalendarButton);
+        clickOn(startDateCalendarButton);
+        clickOn(By.xpath(String.format(startDateCalendarDay, getRandomNumber(1, 6), getRandomNumber(1, 7))));
     }
 
     public void selectExpiresIn() {
