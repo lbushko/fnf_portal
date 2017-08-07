@@ -2,3 +2,5 @@
 target
 *.iml
 chromedriver*
+/fnf.webui.tests.iml
+/.idea/

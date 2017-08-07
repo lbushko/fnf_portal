@@ -1,9 +1,4 @@
-import org.junit.Test;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import org.testng.annotations.Test;
 
 /**
  * Created by ashendri on 02.08.2017.
@@ -24,6 +19,20 @@ public class FieldAndFacilitiesPageNavigationTest extends BaseTest {
             fieldAndFacilitiesPage.switchTo(sidePanelCategories.get(i));
             fieldAndFacilitiesPage.checkSidePanelSelected(sidePanelCategories.get(i));
             fieldAndFacilitiesPage.compareNotamsSidePanelAndTable(sidePanelCategories.get(i));
+        }
+    }
+
+    @Test
+    public void sortNotamTest() throws Exception {
+        LoginPage loginPage = new LoginPage(driver);
+        loginPage.getOnPage();
+        loginPage.logIn(validUsername, validPassword, validCustomerId);
+        FieldAndFacilitiesPage fieldAndFacilitiesPage = new FieldAndFacilitiesPage(driver);
+
+        for (int i = 0; i < sidePanelCategories.size(); i++) {
+            System.out.println("Назва розділу: " + sidePanelCategories.get(i));
+            fieldAndFacilitiesPage.switchTo(sidePanelCategories.get(i));
+            fieldAndFacilitiesPage.ckeckSorting();
         }
     }
 }

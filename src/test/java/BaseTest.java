@@ -1,8 +1,8 @@
-import org.junit.After;
-import org.junit.Before;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Parameters;
 
 import java.security.SecureRandom;
 import java.util.Arrays;
@@ -25,13 +25,14 @@ public class BaseTest {
     static final String AB = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
     static SecureRandom rnd = new SecureRandom();
 
-    @Before
-    public void startUp() {
-        driver = new ChromeDriver();
+    @Parameters("browser")
+    @BeforeClass
+    public void startUp(String browser) {
+        driver = Driver.getDriver(browser);
         wait = new WebDriverWait(driver, 10);
     }
 
-    @After
+    @AfterClass
     public void tearDown() throws Exception {
         driver.quit();
     }
