@@ -13,6 +13,8 @@ public class AddNotamTest extends BaseTest {
         AddNotamFunctionality addNotamFunctionality = new AddNotamFunctionality(driver);
         addNotamFunctionality.selectNotamCategoryToCreate("airport");
         addNotamFunctionality.selectAuthorizedBy(authorizedBy);
+        addNotamFunctionality.selectStartDate();
+        addNotamFunctionality.selectExpiresIn();
         String notamText = addNotamFunctionality.specifyNotamText();
         addNotamFunctionality.selectDataRow();
         String equipmentName = addNotamFunctionality.selectDataRowFromSecondaryPanel();
@@ -26,6 +28,8 @@ public class AddNotamTest extends BaseTest {
         AddNotamFunctionality addNotamFunctionality = new AddNotamFunctionality(driver);
         addNotamFunctionality.selectNotamCategoryToCreate("airport pair");
         addNotamFunctionality.selectAuthorizedBy(authorizedBy);
+        addNotamFunctionality.selectStartDate();
+        addNotamFunctionality.selectExpiresIn();
         String notamText = addNotamFunctionality.specifyNotamText();
         addNotamFunctionality.selectDataRow();
         String equipmentName = addNotamFunctionality.selectDataRowFromSecondaryPanel();
@@ -38,6 +42,8 @@ public class AddNotamTest extends BaseTest {
         AddNotamFunctionality addNotamFunctionality = new AddNotamFunctionality(driver);
         addNotamFunctionality.selectNotamCategoryToCreate("airframe");
         addNotamFunctionality.selectAuthorizedBy(authorizedBy);
+        addNotamFunctionality.selectStartDate();
+        addNotamFunctionality.selectExpiresIn();
         String notamText = addNotamFunctionality.specifyNotamText();
         addNotamFunctionality.selectDataRow();
         addNotamFunctionality.publishNotam();
@@ -49,6 +55,8 @@ public class AddNotamTest extends BaseTest {
         AddNotamFunctionality addNotamFunctionality = new AddNotamFunctionality(driver);
         addNotamFunctionality.selectNotamCategoryToCreate("equipment");
         addNotamFunctionality.selectAuthorizedBy(authorizedBy);
+        addNotamFunctionality.selectStartDate();
+        addNotamFunctionality.selectExpiresIn();
         String notamText = addNotamFunctionality.specifyNotamText();
         addNotamFunctionality.selectDataRow();
         addNotamFunctionality.publishNotam();
@@ -60,6 +68,8 @@ public class AddNotamTest extends BaseTest {
         AddNotamFunctionality addNotamFunctionality = new AddNotamFunctionality(driver);
         addNotamFunctionality.selectNotamCategoryToCreate("flight");
         addNotamFunctionality.selectAuthorizedBy(authorizedBy);
+        addNotamFunctionality.selectStartDate();
+        addNotamFunctionality.selectExpiresIn();
         String notamText = addNotamFunctionality.specifyNotamText();
         addNotamFunctionality.selectDataRow();
         addNotamFunctionality.selectDataRowFromSecondaryPanel();
@@ -72,6 +82,8 @@ public class AddNotamTest extends BaseTest {
         AddNotamFunctionality addNotamFunctionality = new AddNotamFunctionality(driver);
         addNotamFunctionality.selectNotamCategoryToCreate("general");
         addNotamFunctionality.selectAuthorizedBy(authorizedBy);
+        addNotamFunctionality.selectStartDate();
+        addNotamFunctionality.selectExpiresIn();
         String notamText = addNotamFunctionality.specifyNotamText();
         addNotamFunctionality.selectDataRow();
         addNotamFunctionality.selectDataRowFromSecondaryPanel();

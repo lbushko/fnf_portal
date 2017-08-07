@@ -2,6 +2,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -37,5 +39,9 @@ public class BasePage {
 
     protected void clickOn(By by) {
         driver.findElement(by).click();
+    }
+
+    public int getRandomNumber(int min, int max){
+        return new Random().nextInt((max - min) + 1) + min;
     }
 }

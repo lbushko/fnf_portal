@@ -1,5 +1,6 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -27,11 +28,18 @@ public class AddNotamFunctionality extends BasePage {
     private By publishButton = By.xpath("//button[text()='Publish']");
     private By notamCreatedAlert = By.xpath("//div[text()='NOTAM created successfully!']");
     private String category;
+    private By expiresInButton = By.xpath("//button[@class='btn btn-default dropdown-toggle ng-binding ng-scope']");
+    private String expiresInDropDown = "//ul[@aria-labelledby='dropdown-expireIn']//li";
+    private By startDateField = By.name("startDate");
 
     public AddNotamFunctionality(WebDriver driver) {super(driver);}
 
     protected String getCurrentTime() {
         return new SimpleDateFormat("yyyy.MM.dd-HH:mm:ss").format(Calendar.getInstance().getTime());
+    }
+
+    protected String getStartDate() {
+        return new SimpleDateFormat("MM/dd/yyyy").format(Calendar.getInstance().getTime());
     }
 
     public void selectNotamCategoryToCreate(String category) {
@@ -86,5 +94,19 @@ public class AddNotamFunctionality extends BasePage {
         waitFor(By.xpath(String.format(addEquipmentButton, number)));
         clickOn(By.xpath(String.format(addEquipmentButton, number)));
         waitFor(By.xpath(equipmentsTable));
+    }
+
+    public void selectStartDate(){
+        waitFor(startDateField);
+        WebElement startDate = driver.findElement(startDateField);
+        startDate.clear();
+        startDate.sendKeys(getStartDate());
+    }
+
+    public void selectExpiresIn() {
+        waitFor(expiresInButton);
+        clickOn(expiresInButton);
+        int rnd = getRandomNumber(1, driver.findElements(By.xpath(expiresInDropDown)).size());
+        clickOn(By.xpath(expiresInDropDown + "["+rnd+"]"));
     }
 }
