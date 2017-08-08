@@ -27,11 +27,6 @@ public class AddNotamTest extends BaseTest {
 
 
 
-    @Test
-    public void cancelNotam() throws Exception {
-
-    }
-
 }
 
 
