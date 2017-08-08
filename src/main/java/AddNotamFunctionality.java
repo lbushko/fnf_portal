@@ -31,7 +31,7 @@ public class AddNotamFunctionality extends BasePage {
     private By startDateField = By.name("startDate");
     private By startDateCalendarButton = By.xpath("//div[@class='row form-fields ng-scope']/div[@class='form-field date-time col-xs-3'][1]//button[@class='btn btn-default']");
     private String startDateCalendarDay = "//table[@role='grid']/tbody/tr[%d]/td[%d]";
-    private By updateColumnHeader = By.xpath("//div[contains(@role, 'columnheader')]//span[text()='Updated']");
+    private By idColumnHeader = By.xpath("//div[contains(@role, 'columnheader')]//span[text()='ID']");
     private String lastDataRow = "//div[@class='ui-grid-canvas']/div[last()]/div/div";
     private By cancelNotamButton = By.xpath("//button[text()='CANCEL NOTAM']");
     private By cancelYesButton = By.xpath("//button[text()=' YES ']");
@@ -43,6 +43,8 @@ public class AddNotamFunctionality extends BasePage {
     private By notamGridRow = By.xpath("//div[contains(@class, 'ui-grid-row')]");
     private By yesButton = By.xpath("//button[text()=' YES ']");
     private By closeNotamCanceledAlertButton = By.xpath("//button[text()='×']");
+
+    private By endDateField = By.xpath("//input[@name='endDate']");
 
 
 
@@ -122,21 +124,23 @@ public class AddNotamFunctionality extends BasePage {
         startDate.sendKeys(getRandomDate());
     }
 
-    public void selectExpiresIn() {
+    public String selectExpiresIn() throws InterruptedException {
         waitFor(expiresInButton);
         clickOn(expiresInButton);
         int rnd = getRandomNumber(1, driver.findElements(By.xpath(expiresInDropDown)).size());
         clickOn(By.xpath(expiresInDropDown + "["+rnd+"]"));
+        return wait.until(ExpectedConditions.presenceOfElementLocated(endDateField)).getText();
     }
 
-    public void checkNotamCreatedAndCancel(String notamText) {
-        waitFor(updateColumnHeader);
-        clickOn(updateColumnHeader);
+    public void checkNotamCreatedAndCancel(String notamText, String expiresIn) {
+        waitFor(idColumnHeader);
+        clickOn(idColumnHeader);
 
         WebElement element = driver.findElement(By.xpath(lastDataRow));
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
 
         Assert.assertEquals(notamText, driver.findElement(By.xpath(lastDataRow + "[2]")).getText());
+        Assert.assertEquals(expiresIn, driver.findElement(By.xpath(lastDataRow + "[4]")).getText());
         clickOn(By.xpath(lastDataRow));
 
         String parentWindow = driver.getWindowHandle();
@@ -164,6 +168,5 @@ public class AddNotamFunctionality extends BasePage {
         wait.until(ExpectedConditions.invisibilityOf(driver.findElement(cancelDialog)));
         assertFalse(driver.findElement(cancelDialog).isDisplayed());
     }
-
 
 }
