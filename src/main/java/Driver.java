@@ -13,9 +13,9 @@ public class Driver {
     public static WebDriver getDriver(String browser){
         if(browser.equalsIgnoreCase("chrome")){
             ChromeOptions options = new ChromeOptions();
-            options.addArguments("--start-maximized");
+//            options.addArguments("--start-maximized");
             driver = new ChromeDriver(options);
-//            driver.manage().window().maximize();
+            driver.manage().window().maximize();
             driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         }
         else if(browser.equalsIgnoreCase("headless")){
