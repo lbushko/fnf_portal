@@ -149,6 +149,7 @@ public class AddNotamFunctionality extends BasePage {
 
         waitFor(notamCanceledAlert);
         assertTrue(isElementPresent(notamCanceledAlert));
+    }
 
     public void cancelNotamCreation() {
         waitFor(cancelButton);

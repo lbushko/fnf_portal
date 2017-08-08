@@ -1,4 +1,3 @@
-import org.junit.experimental.categories.Category;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import java.util.Arrays;
@@ -11,7 +10,7 @@ public class AddNotamTest extends BaseTest {
     private String authorizedBy = "FOQA";
 
     @DataProvider(name = "Category")
-    public Object[][] CategoryWithSecondPanel() {
+    public Object[][] Category() {
         return new Object[][]{
                 {"airport"},
                 {"airport pair"},
@@ -20,25 +19,26 @@ public class AddNotamTest extends BaseTest {
                 {"equipment"},
                 {"general"}
         };
-    };
+    }
 
 
-        @Test(dataProvider = "Category")
-        public void addNotamTest(String Category) throws Exception {
-            logIn();
-            AddNotamFunctionality addNotamFunctionality = new AddNotamFunctionality(driver);
-            addNotamFunctionality.selectNotamCategoryToCreate(Category);
-            addNotamFunctionality.selectAuthorizedBy(authorizedBy);
-            addNotamFunctionality.selectStartDate();
-            addNotamFunctionality.selectExpiresIn();
-            String notamText = addNotamFunctionality.specifyNotamText();
-            if (!Category.equals("general")) {
-                addNotamFunctionality.selectDataRow();
-            }
-            if (Arrays.asList("airport", "airport pair", "flight").contains(Category)) {
-                addNotamFunctionality.selectDataRowFromSecondaryPanel();
-            }
-            addNotamFunctionality.publishNotam();
+    @Test(dataProvider = "Category")
+    public void addNotamTest(String Category) throws Exception {
+        logIn();
+        AddNotamFunctionality addNotamFunctionality = new AddNotamFunctionality(driver);
+        addNotamFunctionality.selectNotamCategoryToCreate(Category);
+        addNotamFunctionality.selectAuthorizedBy(authorizedBy);
+        addNotamFunctionality.selectStartDate();
+        addNotamFunctionality.selectExpiresIn();
+        String notamText = addNotamFunctionality.specifyNotamText();
+        if (!Category.equals("general")) {
+            addNotamFunctionality.selectDataRow();
+        }
+        if (Arrays.asList("airport", "airport pair", "flight").contains(Category)) {
+            addNotamFunctionality.selectDataRowFromSecondaryPanel();
+        }
+        addNotamFunctionality.publishNotam();
+        addNotamFunctionality.checkNotamCreatedAndCancel(notamText);
         }
 
     @Test(dataProvider = "Category")
@@ -58,6 +58,6 @@ public class AddNotamTest extends BaseTest {
         }
         addNotamFunctionality.cancelNotamCreation();
     }
-    }
+}
 
 
