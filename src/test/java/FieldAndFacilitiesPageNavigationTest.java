@@ -13,12 +13,12 @@ public class FieldAndFacilitiesPageNavigationTest extends BaseTest {
         FieldAndFacilitiesPage fieldAndFacilitiesPage = new FieldAndFacilitiesPage(driver);
 
         fieldAndFacilitiesPage.checkSidePanelSelected(sidePanelCategories.get(0));
-//        fieldAndFacilitiesPage.compareNotamsSidePanelAndTable(sidePanelCategories.get(0));
+        fieldAndFacilitiesPage.compareNotamsSidePanelAndTable(sidePanelCategories.get(0));
 
         for (int i = 1; i < sidePanelCategories.size(); i++) {
             fieldAndFacilitiesPage.switchTo(sidePanelCategories.get(i));
             fieldAndFacilitiesPage.checkSidePanelSelected(sidePanelCategories.get(i));
-//            fieldAndFacilitiesPage.compareNotamsSidePanelAndTable(sidePanelCategories.get(i));
+            fieldAndFacilitiesPage.compareNotamsSidePanelAndTable(sidePanelCategories.get(i));
         }
     }
 
@@ -32,7 +32,7 @@ public class FieldAndFacilitiesPageNavigationTest extends BaseTest {
         for (int i = 0; i < sidePanelCategories.size(); i++) {
             System.out.println("Назва розділу: " + sidePanelCategories.get(i));
             fieldAndFacilitiesPage.switchTo(sidePanelCategories.get(i));
-            fieldAndFacilitiesPage.ckeckSorting();
+            fieldAndFacilitiesPage.checkSorting();
         }
     }
 }

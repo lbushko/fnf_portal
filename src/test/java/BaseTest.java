@@ -18,6 +18,8 @@ public class BaseTest {
     protected String validPassword = "fusion";
     protected String validCustomerId = "14301";
 
+    protected String authorizedBy = "FOQA";
+
     protected WebDriver driver;
     protected WebDriverWait wait;
     static final String AB = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
@@ -30,10 +32,22 @@ public class BaseTest {
         wait = new WebDriverWait(driver, 10);
     }
 
-    @AfterClass
-    public void tearDown() throws Exception {
-        driver.quit();
-    }
+//    @AfterClass
+//    public void tearDown() throws Exception {
+//        driver.quit();
+//    }
+
+    @DataProvider(name = "Category")
+    public Object[][] CategoryWithSecondPanel() {
+        return new Object[][]{
+                {"airport"},
+                {"airport pair"},
+                {"flight"},
+                {"airframe"},
+                {"equipment"},
+                {"general"}
+        };
+    };
 
     protected String randomString( int len ){
         StringBuilder sb = new StringBuilder( len );

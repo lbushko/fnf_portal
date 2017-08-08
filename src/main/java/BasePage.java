@@ -37,9 +37,9 @@ public class BasePage {
         wait.until(ExpectedConditions.visibilityOf(driver.findElement(by)));
     }
 
-    protected void clickOn(By by) {
-        driver.findElement(by).click();
-    }
+    protected void clickOn(By by) {driver.findElement(by).click();}
+
+    protected void waitForClickability(By by) {wait.until(ExpectedConditions.elementToBeClickable(by));}
 
     public int getRandomNumber(int min, int max){
         return new Random().nextInt((max - min) + 1) + min;

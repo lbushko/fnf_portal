@@ -51,14 +51,20 @@ public class FieldAndFacilitiesPage extends BasePage {
     }
 
     public void compareNotamsSidePanelAndTable(String category) {
+        int notamsNumber;
         if (!category.equals("Archive")) {
             waitFor(By.xpath(String.format(sidePanelCategoryLink + "/span", category)));
-            waitFor(dataRow);
-            assertEquals(Integer.parseInt(driver.findElement(By.xpath(String.format(sidePanelCategoryLink + "/span", category))).getText()), driver.findElements(dataRow).size());
+            if (!isElementPresent(dataRow)) {
+                notamsNumber = 0;
+            }
+            else {
+                notamsNumber = driver.findElements(dataRow).size();
+            }
+            assertEquals(Integer.parseInt(driver.findElement(By.xpath(String.format(sidePanelCategoryLink + "/span", category))).getText()), notamsNumber);
         }
     }
 
-    public void ckeckSorting() {
+    public void checkSorting() {
 
         wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(gridHeader));
         List<WebElement> columns = driver.findElements(gridHeader);

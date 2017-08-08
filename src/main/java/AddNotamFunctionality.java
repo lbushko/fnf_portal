@@ -40,6 +40,11 @@ public class AddNotamFunctionality extends BasePage {
     private By cancelDialog = By.xpath("//div[contains(@class, 'modal-dialog')]");
     private By discardButton = By.xpath("//button[text()=' DISCARD ']");
 
+    private By notamGridRow = By.xpath("//div[contains(@class, 'ui-grid-row')]");
+    private By yesButton = By.xpath("//button[text()=' YES ']");
+    private By closeNotamCanceledAlertButton = By.xpath("//button[text()='×']");
+
+
 
     public AddNotamFunctionality(WebDriver driver) {super(driver);}
 
@@ -149,13 +154,16 @@ public class AddNotamFunctionality extends BasePage {
 
         waitFor(notamCanceledAlert);
         assertTrue(isElementPresent(notamCanceledAlert));
+    }
 
     public void cancelNotamCreation() {
         waitFor(cancelButton);
         driver.findElement(cancelButton).click();
         waitFor(cancelDialog);
         driver.findElement(discardButton).click();
+        wait.until(ExpectedConditions.invisibilityOf(driver.findElement(cancelDialog)));
         assertFalse(driver.findElement(cancelDialog).isDisplayed());
     }
+
 
 }
