@@ -23,7 +23,7 @@ public class FieldAndFacilitiesPage extends BasePage {
     private By gridHeader = By.xpath("//div[contains(@role, 'columnheader')]//span[1]");
     //TODO переробити цей селект
 //    private String columData = "//div[@class='ng-isolate-scope']/div['%s']";
-    private String columData = "//div[@class='ui-grid-canvas']/div/div/div['%s']/div";
+    private String columData = "//div[@class='ui-grid-canvas']/div/div/div[%s]/div";
 
     public static String expectedPageTitle = "WSI° Field & Facilities";
 

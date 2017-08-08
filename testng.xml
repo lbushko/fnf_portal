@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
-<suite name="web.ui" parallel="classes" thread-count="2">
+<suite name="web.ui">
     <test name="all">
         <classes>
-            <class name="AddNotamTest"></class>
-            <class name="FieldAndFacilitiesPageNavigationTest"></class>
             <class name="LoginPageTest"></class>
+            <class name="FieldAndFacilitiesPageNavigationTest"></class>
+            <class name="AddNotamTest"></class>
         </classes>
     </test>
 </suite>

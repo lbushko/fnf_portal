@@ -21,37 +21,49 @@ public class AddNotamTest extends BaseTest {
         return new Object[][]{
                 {"airport"},
                 {"airport pair"},
-                {"flight"},
-                {"general"}
+                {"flight"}
         };
     }
 
-        @Test(dataProvider = "Category")
-        public void addAirframeNotamTest (String Category) throws Exception {
-            logIn();
-            AddNotamFunctionality addNotamFunctionality = new AddNotamFunctionality(driver);
-            addNotamFunctionality.selectNotamCategoryToCreate(Category);
-            addNotamFunctionality.selectAuthorizedBy(authorizedBy);
-            addNotamFunctionality.selectStartDate();
-            addNotamFunctionality.selectExpiresIn();
-            String notamText = addNotamFunctionality.specifyNotamText();
-            addNotamFunctionality.selectDataRow();
-            addNotamFunctionality.publishNotam();
-        }
+    @Test(dataProvider = "Category")
+    public void addAirframeNotamTest (String Category) throws Exception {
+        logIn();
+        AddNotamFunctionality addNotamFunctionality = new AddNotamFunctionality(driver);
+        addNotamFunctionality.selectNotamCategoryToCreate(Category);
+        addNotamFunctionality.selectAuthorizedBy(authorizedBy);
+        addNotamFunctionality.selectStartDate();
+        addNotamFunctionality.selectExpiresIn();
+        String notamText = addNotamFunctionality.specifyNotamText();
+        addNotamFunctionality.selectDataRow();
+        addNotamFunctionality.publishNotam();
+        addNotamFunctionality.checkNotamCreatedAndCancel(notamText);
+    }
 
-        @Test(dataProvider = "CategoryWithSecondPanel")
-        public void addAirportNotamTest (String Category) throws Exception {
-            logIn();
-            AddNotamFunctionality addNotamFunctionality = new AddNotamFunctionality(driver);
-            addNotamFunctionality.selectNotamCategoryToCreate(Category);
-            addNotamFunctionality.selectAuthorizedBy(authorizedBy);
-            addNotamFunctionality.selectStartDate();
-            addNotamFunctionality.selectExpiresIn();
-            addNotamFunctionality.specifyNotamText();
-            addNotamFunctionality.selectDataRow();
-            addNotamFunctionality.selectDataRowFromSecondaryPanel();
-            String notamText = addNotamFunctionality.specifyNotamText();
-            addNotamFunctionality.publishNotam();
-        }
+    @Test(dataProvider = "CategoryWithSecondPanel")
+    public void addAirportNotamTest (String Category) throws Exception {
+        logIn();
+        AddNotamFunctionality addNotamFunctionality = new AddNotamFunctionality(driver);
+        addNotamFunctionality.selectNotamCategoryToCreate(Category);
+        addNotamFunctionality.selectAuthorizedBy(authorizedBy);
+        addNotamFunctionality.selectStartDate();
+        addNotamFunctionality.selectExpiresIn();
+        String notamText = addNotamFunctionality.specifyNotamText();
+        addNotamFunctionality.selectDataRow();
+        addNotamFunctionality.selectDataRowFromSecondaryPanel();
+        addNotamFunctionality.publishNotam();
+        addNotamFunctionality.checkNotamCreatedAndCancel(notamText);
+    }
 
+    @Test
+    public void addGeneralNotamTest () throws Exception {
+        logIn();
+        AddNotamFunctionality addNotamFunctionality = new AddNotamFunctionality(driver);
+        addNotamFunctionality.selectNotamCategoryToCreate("general");
+        addNotamFunctionality.selectAuthorizedBy(authorizedBy);
+        addNotamFunctionality.selectStartDate();
+        addNotamFunctionality.selectExpiresIn();
+        String notamText = addNotamFunctionality.specifyNotamText();
+        addNotamFunctionality.publishNotam();
+        addNotamFunctionality.checkNotamCreatedAndCancel(notamText);
+    }
 }
