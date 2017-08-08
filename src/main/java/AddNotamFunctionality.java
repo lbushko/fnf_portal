@@ -1,4 +1,6 @@
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -27,6 +29,7 @@ public class AddNotamFunctionality extends BasePage {
     private By updateEquipmentButton = By.xpath("//button[text()='Update']");
     private By publishButton = By.xpath("//button[text()='Publish']");
     private By notamCreatedAlert = By.xpath("//div[text()='NOTAM created successfully!']");
+    private By notamsList = By.xpath("(//div[@role='rowgroup'])[2]");
     private String category;
     private By expiresInButton = By.xpath("//button[@class='btn btn-default dropdown-toggle ng-binding ng-scope']");
     private String expiresInDropDown = "//ul[@aria-labelledby='dropdown-expireIn']//li";
@@ -98,6 +101,7 @@ public class AddNotamFunctionality extends BasePage {
         waitFor(By.xpath(equipmentsTable));
     }
 
+
     public void selectStartDate(){
         waitFor(startDateCalendarButton);
         clickOn(startDateCalendarButton);
@@ -110,4 +114,5 @@ public class AddNotamFunctionality extends BasePage {
         int rnd = getRandomNumber(1, driver.findElements(By.xpath(expiresInDropDown)).size());
         clickOn(By.xpath(expiresInDropDown + "["+rnd+"]"));
     }
+
 }

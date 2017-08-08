@@ -81,7 +81,7 @@
                         </suiteXmlFiles>
                         <systemPropertyVariables>
                             <browser>${browser}</browser>
-                            <webdriver.chrome.driver>C:\Users\lbushko\Desktop\fnf\chromedriver.exe</webdriver.chrome.driver>
+                            <webdriver.chrome.driver>${basedir}\chromedriver.exe</webdriver.chrome.driver>
                         </systemPropertyVariables>
                     </configuration>
                 </plugin>

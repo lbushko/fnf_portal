@@ -1,4 +1,5 @@
 import org.testng.annotations.DataProvider;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 /**
@@ -24,6 +25,16 @@ public class AddNotamTest extends BaseTest {
                 {"flight"},
                 {"general"}
         };
+
+    @Test
+    public void addAirframeNotamTest() throws Exception {
+        logIn();
+        AddNotamFunctionality addNotamFunctionality = new AddNotamFunctionality(driver);
+        addNotamFunctionality.selectNotamCategoryToCreate("airframe");
+        addNotamFunctionality.selectAuthorizedBy(authorizedBy);
+        String notamText = addNotamFunctionality.specifyNotamText();
+        addNotamFunctionality.selectDataRow();
+        addNotamFunctionality.publishNotam();
     }
 
     @Test(dataProvider = "Category")
@@ -50,6 +61,9 @@ public class AddNotamTest extends BaseTest {
         addNotamFunctionality.specifyNotamText();
         addNotamFunctionality.selectDataRow();
         addNotamFunctionality.selectDataRowFromSecondaryPanel();
+        String notamText = addNotamFunctionality.specifyNotamText();
         addNotamFunctionality.publishNotam();
     }
+
+
 }
