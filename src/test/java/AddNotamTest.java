@@ -1,3 +1,4 @@
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 /**
@@ -31,6 +32,7 @@ public class AddNotamTest extends BaseTest {
         String equipmentName = addNotamFunctionality.selectDataRowFromSecondaryPanel();
         addNotamFunctionality.publishNotam();
     }
+
 
     @Test
     public void addAirframeNotamTest() throws Exception {
@@ -73,8 +75,8 @@ public class AddNotamTest extends BaseTest {
         addNotamFunctionality.selectNotamCategoryToCreate("general");
         addNotamFunctionality.selectAuthorizedBy(authorizedBy);
         String notamText = addNotamFunctionality.specifyNotamText();
-        addNotamFunctionality.selectDataRow();
-        addNotamFunctionality.selectDataRowFromSecondaryPanel();
         addNotamFunctionality.publishNotam();
     }
+
+
 }

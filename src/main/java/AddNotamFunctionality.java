@@ -1,4 +1,6 @@
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import java.text.SimpleDateFormat;
@@ -26,6 +28,7 @@ public class AddNotamFunctionality extends BasePage {
     private By updateEquipmentButton = By.xpath("//button[text()='Update']");
     private By publishButton = By.xpath("//button[text()='Publish']");
     private By notamCreatedAlert = By.xpath("//div[text()='NOTAM created successfully!']");
+    private By notamsList = By.xpath("(//div[@role='rowgroup'])[2]");
     private String category;
 
     public AddNotamFunctionality(WebDriver driver) {super(driver);}
@@ -87,4 +90,6 @@ public class AddNotamFunctionality extends BasePage {
         clickOn(By.xpath(String.format(addEquipmentButton, number)));
         waitFor(By.xpath(equipmentsTable));
     }
+
+
 }

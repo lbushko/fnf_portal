@@ -15,8 +15,6 @@ public class BasePage {
 
     public BasePage(WebDriver driver) {
         this.driver = driver;
-//        driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         wait = new WebDriverWait(driver, 10);
     }
 
