@@ -1,3 +1,4 @@
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
@@ -8,31 +9,22 @@ public class AddNotamTest extends BaseTest {
 
     private String authorizedBy = "FOQA";
 
-    @Test
-    public void addAirportNotamTest() throws Exception {
-        logIn();
-        AddNotamFunctionality addNotamFunctionality = new AddNotamFunctionality(driver);
-        addNotamFunctionality.selectNotamCategoryToCreate("airport");
-        addNotamFunctionality.selectAuthorizedBy(authorizedBy);
-        String notamText = addNotamFunctionality.specifyNotamText();
-        addNotamFunctionality.selectDataRow();
-        String equipmentName = addNotamFunctionality.selectDataRowFromSecondaryPanel();
-        addNotamFunctionality.publishNotam();
+    @DataProvider(name = "Category")
+    public static Object[][] Category(){
+        return new Object[][]{
+                {"airframe"},
+                {"equipment"}
+        };
     }
 
-
-    @Test
-    public void addAirportPairNotamTest() throws Exception {
-        logIn();
-        AddNotamFunctionality addNotamFunctionality = new AddNotamFunctionality(driver);
-        addNotamFunctionality.selectNotamCategoryToCreate("airport pair");
-        addNotamFunctionality.selectAuthorizedBy(authorizedBy);
-        String notamText = addNotamFunctionality.specifyNotamText();
-        addNotamFunctionality.selectDataRow();
-        String equipmentName = addNotamFunctionality.selectDataRowFromSecondaryPanel();
-        addNotamFunctionality.publishNotam();
-    }
-
+    @DataProvider(name = "CategoryWithSecondPanel")
+    public static Object[][] CategoryWithSecondPanel(){
+        return new Object[][]{
+                {"airport"},
+                {"airport pair"},
+                {"flight"},
+                {"general"}
+        };
 
     @Test
     public void addAirframeNotamTest() throws Exception {
@@ -45,35 +37,30 @@ public class AddNotamTest extends BaseTest {
         addNotamFunctionality.publishNotam();
     }
 
-    @Test
-    public void addEquipmentNotamTest() throws Exception {
+    @Test(dataProvider = "Category")
+    public void addAirframeNotamTest(String Category) throws Exception {
         logIn();
         AddNotamFunctionality addNotamFunctionality = new AddNotamFunctionality(driver);
-        addNotamFunctionality.selectNotamCategoryToCreate("equipment");
+        addNotamFunctionality.selectNotamCategoryToCreate(Category);
         addNotamFunctionality.selectAuthorizedBy(authorizedBy);
-        String notamText = addNotamFunctionality.specifyNotamText();
+        addNotamFunctionality.selectStartDate();
+        addNotamFunctionality.selectExpiresIn();
+        addNotamFunctionality.specifyNotamText();
         addNotamFunctionality.selectDataRow();
         addNotamFunctionality.publishNotam();
     }
 
-    @Test
-    public void addFlightNotamTest() throws Exception {
+    @Test(dataProvider = "CategoryWithSecondPanel")
+    public void addAirportNotamTest(String Category) throws Exception {
         logIn();
         AddNotamFunctionality addNotamFunctionality = new AddNotamFunctionality(driver);
-        addNotamFunctionality.selectNotamCategoryToCreate("flight");
+        addNotamFunctionality.selectNotamCategoryToCreate(Category);
         addNotamFunctionality.selectAuthorizedBy(authorizedBy);
-        String notamText = addNotamFunctionality.specifyNotamText();
+        addNotamFunctionality.selectStartDate();
+        addNotamFunctionality.selectExpiresIn();
+        addNotamFunctionality.specifyNotamText();
         addNotamFunctionality.selectDataRow();
         addNotamFunctionality.selectDataRowFromSecondaryPanel();
-        addNotamFunctionality.publishNotam();
-    }
-
-    @Test
-    public void addGeneralNotamTest() throws Exception {
-        logIn();
-        AddNotamFunctionality addNotamFunctionality = new AddNotamFunctionality(driver);
-        addNotamFunctionality.selectNotamCategoryToCreate("general");
-        addNotamFunctionality.selectAuthorizedBy(authorizedBy);
         String notamText = addNotamFunctionality.specifyNotamText();
         addNotamFunctionality.publishNotam();
     }
