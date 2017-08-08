@@ -31,6 +31,8 @@ public class BasePage {
         }
     }
 
+
+
     protected void waitFor(By by) {
         wait.until(ExpectedConditions.visibilityOf(driver.findElement(by)));
     }

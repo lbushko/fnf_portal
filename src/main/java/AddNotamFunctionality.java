@@ -5,9 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 /**
  * Created by ashendri on 03.08.2017.
@@ -21,11 +19,10 @@ public class AddNotamFunctionality extends BasePage {
     private String authorizersDropdown = "//ul/li/a[contains(text(), '%s')]";
     private By notamTextInput = By.xpath("//textarea[@name='text']");
     private String dataRow = "(//div[contains(@class, 'ui-grid-row')])[%d]";
-//    private String addEquipmentButton = "(//button[text()='add equipment...'])[%d]";
     private String addEquipmentButton = "(//div[contains(@class, 'ui-grid-row')]//button)[%d]";
     private String equipmentsTable = "//tbody[contains(@class, 'mini-grid-scroller')]";
     private By updateEquipmentButton = By.xpath("//button[text()='Update']");
-    private By publishButton = By.xpath("//button[text()='Publish']");
+    private By publishButton = By.xpath("//button[contains(@class, 'publish')]");
     private By notamCreatedAlert = By.xpath("//div[text()='NOTAM created successfully!']");
     private By notamsList = By.xpath("(//div[@role='rowgroup'])[2]");
     private String category;
@@ -39,6 +36,10 @@ public class AddNotamFunctionality extends BasePage {
     private By cancelNotamButton = By.xpath("//button[text()='CANCEL NOTAM']");
     private By cancelYesButton = By.xpath("//button[text()=' YES ']");
     private By notamCanceledAlert = By.xpath("//div[text()='Notam cancelled successfully!']");
+    private By cancelButton = By.xpath("//button[contains(@class, 'cancel')]");
+    private By cancelDialog = By.xpath("//div[contains(@class, 'modal-dialog')]");
+    private By discardButton = By.xpath("//button[text()=' DISCARD ']");
+
 
     public AddNotamFunctionality(WebDriver driver) {super(driver);}
 
@@ -148,6 +149,13 @@ public class AddNotamFunctionality extends BasePage {
 
         waitFor(notamCanceledAlert);
         assertTrue(isElementPresent(notamCanceledAlert));
+
+    public void cancelNotamCreation() {
+        waitFor(cancelButton);
+        driver.findElement(cancelButton).click();
+        waitFor(cancelDialog);
+        driver.findElement(discardButton).click();
+        assertFalse(driver.findElement(cancelDialog).isDisplayed());
     }
 
 }
