@@ -35,6 +35,8 @@ public class FieldAndFacilitiesPage extends BasePage {
     private By cancelYesButton = By.xpath("//button[text()=' YES ']");
     private By notamCanceledAlert = By.xpath("//div[text()='Notam cancelled successfully!']");
     private By dublicateNotamButton = By.xpath("//button[text()='DUPLICATE NOTAM']");
+    private By updateNotamButton = By.xpath("//button[text()='UPDATE NOTAM']");
+    private By notamUpdatedAlert = By.xpath("//div[text()='Notam updated successfully!']");
 
 
     public static String expectedPageTitle = "WSI° Field & Facilities";
@@ -173,5 +175,12 @@ public class FieldAndFacilitiesPage extends BasePage {
         waitFor(dublicateNotamButton);
         clickOn(dublicateNotamButton);
         return new AddNotamFunctionality(driver);
+    }
+
+    public void clickUpdateNotam(){
+        waitFor(updateNotamButton);
+        clickOn(updateNotamButton);
+        waitFor(notamUpdatedAlert);
+        assertTrue(isElementPresent(notamUpdatedAlert));
     }
 }

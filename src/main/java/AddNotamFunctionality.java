@@ -41,6 +41,7 @@ public class AddNotamFunctionality extends BasePage {
     private By closeNotamCanceledAlertButton = By.xpath("//button[text()='×']");
 
     private By endDateField = By.xpath("//input[@name='endDate']");
+    private By notamChangeReason = By.xpath("//textarea[@name='changeReason']");
 
 
 
@@ -50,11 +51,11 @@ public class AddNotamFunctionality extends BasePage {
         return new SimpleDateFormat("yyyy.MM.dd-HH:mm:ss").format(Calendar.getInstance().getTime());
     }
 
-    protected String getRandomDate() {
+    protected String getRandomDate(int min, int max) {
         Date currentDate = new Date();
         Calendar cal = Calendar.getInstance();
         cal.setTime(currentDate);
-        cal.add(Calendar.DATE, getRandomNumber(0, 5));
+        cal.add(Calendar.DATE, getRandomNumber(min, max));
         return new SimpleDateFormat("MM/dd/yyyy").format(cal.getTime());
     }
 
@@ -120,7 +121,22 @@ public class AddNotamFunctionality extends BasePage {
         waitFor(startDateField);
         WebElement startDate = driver.findElement(startDateField);
         startDate.clear();
-        startDate.sendKeys(getRandomDate());
+        startDate.sendKeys(getRandomDate(0,5));
+    }
+
+    public String selectEndDate() throws ParseException {
+        waitFor(endDateField);
+        WebElement endDate = driver.findElement(endDateField);
+        endDate.clear();
+        endDate.sendKeys(getRandomDate(5, 10));
+
+        String expiresIn = wait.until(ExpectedConditions.presenceOfElementLocated(endDateField)).getAttribute("value");
+
+        if (expiresIn.equals("[]") || expiresIn.equals("")){expiresIn = "NEVER";}
+        else {
+            expiresIn = new SimpleDateFormat("MM/dd/yy").format(new SimpleDateFormat("MM/dd/yyyy").parse(expiresIn));
+        }
+        return expiresIn;
     }
 
     public String selectExpiresIn() throws InterruptedException, ParseException {
@@ -167,6 +183,14 @@ public class AddNotamFunctionality extends BasePage {
         waitFor(closeNotamCanceledAlertButton);
         clickOn(closeNotamCanceledAlertButton);
         wait.until(ExpectedConditions.invisibilityOfElementLocated(closeNotamCanceledAlertButton));
+    }
+
+    public String specifyChangeReason(){
+        String notamText = "SOME REASON";
+        WebElement field = driver.findElement(notamChangeReason);
+        field.clear();
+        field.sendKeys(notamText);
+        return notamText;
     }
 
 }
