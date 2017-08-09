@@ -24,13 +24,13 @@ public class AddNotamFunctionality extends BasePage {
     private By updateEquipmentButton = By.xpath("//button[text()='Update']");
     private By publishButton = By.xpath("//button[contains(@class, 'publish')]");
     private By notamCreatedAlert = By.xpath("//div[text()='NOTAM created successfully!']");
-    private By notamsList = By.xpath("(//div[@role='rowgroup'])[2]");
+//    private By notamsList = By.xpath("(//div[@role='rowgroup'])[2]");
     private String category;
     private By expiresInButton = By.xpath("//button[@class='btn btn-default dropdown-toggle ng-binding ng-scope']");
     private String expiresInDropDown = "//ul[@aria-labelledby='dropdown-expireIn']//li";
     private By startDateField = By.name("startDate");
-    private By startDateCalendarButton = By.xpath("//div[@class='row form-fields ng-scope']/div[@class='form-field date-time col-xs-3'][1]//button[@class='btn btn-default']");
-    private String startDateCalendarDay = "//table[@role='grid']/tbody/tr[%d]/td[%d]";
+//    private By startDateCalendarButton = By.xpath("//div[@class='row form-fields ng-scope']/div[@class='form-field date-time col-xs-3'][1]//button[@class='btn btn-default']");
+//    private String startDateCalendarDay = "//table[@role='grid']/tbody/tr[%d]/td[%d]";
     private By updateColumnHeader = By.xpath("//div[contains(@role, 'columnheader')]//span[text()='Updated']");
     private String lastDataRow = "//div[@class='ui-grid-canvas']/div[last()]/div/div";
     private By cancelNotamButton = By.xpath("//button[text()='CANCEL NOTAM']");
@@ -40,8 +40,7 @@ public class AddNotamFunctionality extends BasePage {
     private By cancelDialog = By.xpath("//div[contains(@class, 'modal-dialog')]");
     private By discardButton = By.xpath("//button[text()=' DISCARD ']");
 
-    private By notamGridRow = By.xpath("//div[contains(@class, 'ui-grid-row')]");
-    private By yesButton = By.xpath("//button[text()=' YES ']");
+    private String notamGridRow = "//div[contains(@class, 'ui-grid-row')]";
     private By closeNotamCanceledAlertButton = By.xpath("//button[text()='×']");
 
 
@@ -156,14 +155,38 @@ public class AddNotamFunctionality extends BasePage {
         assertTrue(isElementPresent(notamCanceledAlert));
     }
 
+    public void checkNotamNotCreated(String notamText) {
+        assertFalse(isElementPresent(By.xpath(String.format(notamGridRow + "//div[text()='%s'", notamText))));
+    }
+
     public void cancelNotamCreation() {
         waitFor(cancelButton);
         driver.findElement(cancelButton).click();
         waitFor(cancelDialog);
         driver.findElement(discardButton).click();
         wait.until(ExpectedConditions.invisibilityOf(driver.findElement(cancelDialog)));
-        assertFalse(driver.findElement(cancelDialog).isDisplayed());
+//        assertFalse(driver.findElement(cancelDialog).isDisplayed());
     }
+
+    public void cancelAllNotams() {
+        while (isElementPresent(By.xpath("notamGridRow"))) {
+            cancelNotam();
+        }
+
+    }
+
+    public void cancelNotam() {
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("notamGridRow")));
+        clickOn(By.xpath("notamGridRow"));
+        wait.until(ExpectedConditions.elementToBeClickable(cancelNotamButton));
+        clickOn(cancelNotamButton);
+        waitFor(cancelDialog);
+        clickOn(cancelYesButton);
+        waitFor(closeNotamCanceledAlertButton);
+        clickOn(closeNotamCanceledAlertButton);
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(closeNotamCanceledAlertButton));
+    }
+
 
 
 }

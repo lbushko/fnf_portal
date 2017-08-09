@@ -24,5 +24,6 @@ public class DiscardAddNotamTest extends BaseTest {
             addNotamFunctionality.selectDataRowFromSecondaryPanel();
         }
         addNotamFunctionality.cancelNotamCreation();
+        addNotamFunctionality.checkNotamNotCreated(notamText);
     }
 }

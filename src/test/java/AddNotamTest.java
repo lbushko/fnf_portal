@@ -23,14 +23,17 @@ public class AddNotamTest extends BaseTest {
                 addNotamFunctionality.selectDataRowFromSecondaryPanel();
             }
             addNotamFunctionality.publishNotam();
+            addNotamFunctionality.checkNotamCreatedAndCancel(notamText);
         }
 
 
 
-    @Test
-    public void cancelNotam() throws Exception {
-
-    }
+//    @Test
+//    public void cancelNotam() throws Exception {
+//        logIn();
+//        AddNotamFunctionality addNotamFunctionality = new AddNotamFunctionality(driver);
+//        addNotamFunctionality.cancelAllNotams();
+//    }
 
 }
 
