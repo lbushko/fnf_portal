@@ -1,4 +1,3 @@
-import org.openqa.selenium.WebDriver;
 import org.testng.annotations.Test;
 
 import java.util.Arrays;
@@ -16,11 +15,11 @@ public class DiscardAddNotamTest extends BaseTest {
         addNotamFunctionality.selectAuthorizedBy(authorizedBy);
         addNotamFunctionality.selectStartDate();
         addNotamFunctionality.selectExpiresIn();
-        String notamText = addNotamFunctionality.specifyNotamText();
-        if (!Category.equals("general")) {
+        String notamText = addNotamFunctionality.specifyNotamText("NEW");
+        if (!Category.equals("General")) {
             addNotamFunctionality.selectDataRow();
         }
-        if (Arrays.asList("airport", "airport pair", "flight").contains(Category)) {
+        if (Arrays.asList("Airport", "Airport pair", "Flight").contains(Category)) {
             addNotamFunctionality.selectDataRowFromSecondaryPanel();
         }
         addNotamFunctionality.cancelNotamCreation();

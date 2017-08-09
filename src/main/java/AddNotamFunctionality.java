@@ -31,16 +31,8 @@ public class AddNotamFunctionality extends BasePage {
     private By expiresInButton = By.xpath("//button[@class='btn btn-default dropdown-toggle ng-binding ng-scope']");
     private String expiresInDropDown = "//ul[@aria-labelledby='dropdown-expireIn']//li";
     private By startDateField = By.name("startDate");
-//    private By startDateCalendarButton = By.xpath("//div[@class='row form-fields ng-scope']/div[@class='form-field date-time col-xs-3'][1]//button[@class='btn btn-default']");
-//    private String startDateCalendarDay = "//table[@role='grid']/tbody/tr[%d]/td[%d]";
-    private By updateColumnHeader = By.xpath("//div[contains(@role, 'columnheader')]//span[text()='Updated']");
-    private By startDateCalendarButton = By.xpath("//div[@class='row form-fields ng-scope']/div[@class='form-field date-time col-xs-3'][1]//button[@class='btn btn-default']");
-    private String startDateCalendarDay = "//table[@role='grid']/tbody/tr[%d]/td[%d]";
-    private By idColumnHeader = By.xpath("//div[contains(@role, 'columnheader')]//span[text()='ID']");
-    private String lastDataRow = "//div[@class='ui-grid-canvas']/div[last()]/div/div";
     private By cancelNotamButton = By.xpath("//button[text()='CANCEL NOTAM']");
     private By cancelYesButton = By.xpath("//button[text()=' YES ']");
-    private By notamCanceledAlert = By.xpath("//div[text()='Notam cancelled successfully!']");
     private By cancelButton = By.xpath("//button[contains(@class, 'cancel')]");
     private By cancelDialog = By.xpath("//div[contains(@class, 'modal-dialog')]");
     private By discardButton = By.xpath("//button[text()=' DISCARD ']");
@@ -81,9 +73,11 @@ public class AddNotamFunctionality extends BasePage {
         assertEquals(driver.findElement(authorizedByDropdown).getText(), authorizedBy);
     }
 
-    public String specifyNotamText() {
-        String notamText = getCurrentTime();
-        driver.findElement(notamTextInput).sendKeys(notamText);
+    public String specifyNotamText(String status) {
+        String notamText = status+" "+getCurrentTime();
+        WebElement field = driver.findElement(notamTextInput);
+        field.clear();
+        field.sendKeys(notamText);
         return notamText;
     }
 

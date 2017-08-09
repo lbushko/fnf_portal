@@ -15,11 +15,11 @@ public class AddNotamTest extends BaseTest {
             addNotamFunctionality.selectStartDate();
             String expiresIn = addNotamFunctionality.selectExpiresIn();
             System.out.println(expiresIn);
-            String notamText = addNotamFunctionality.specifyNotamText();
-            if (!Category.equals("general")) {
+            String notamText = addNotamFunctionality.specifyNotamText("NEW");
+            if (!Category.equals("General")) {
                 addNotamFunctionality.selectDataRow();
             }
-            if (Arrays.asList("airport", "airport pair", "flight").contains(Category)) {
+            if (Arrays.asList("Airport", "Airport pair", "Flight").contains(Category)) {
                 addNotamFunctionality.selectDataRowFromSecondaryPanel();
             }
             FieldAndFacilitiesPage fieldAndFacilitiesPage = addNotamFunctionality.publishNotam();

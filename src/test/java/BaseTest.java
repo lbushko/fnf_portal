@@ -40,14 +40,14 @@ public class BaseTest {
     @DataProvider(name = "Category")
     public Object[][] CategoryWithSecondPanel() {
         return new Object[][]{
-                {"airport"},
-                {"airport pair"},
-                {"flight"},
-                {"airframe"},
-                {"equipment"},
-                {"general"}
+                {"Airport"},
+                {"Airport Pair"},
+                {"Flight"},
+                {"Airframe"},
+                {"Equipment"},
+                {"General"}
         };
-    };
+    }
 
     protected String randomString( int len ){
         StringBuilder sb = new StringBuilder( len );
