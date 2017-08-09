@@ -37,18 +37,11 @@ public class FieldAndFacilitiesPage extends BasePage {
     private By cancelNotamButton = By.xpath("//button[text()='CANCEL NOTAM']");
     private By cancelYesButton = By.xpath("//button[text()=' YES ']");
     private By notamCanceledAlert = By.xpath("//div[text()='Notam cancelled successfully!']");
+    private static String expectedPageTitle = "WSI° Field & Facilities";
 
+    public FieldAndFacilitiesPage(WebDriver driver) { super(driver); }
 
-    public static String expectedPageTitle = "WSI° Field & Facilities";
-
-    public static String getExpectedPageTitle() {
-        return expectedPageTitle;
-    }
-
-    public FieldAndFacilitiesPage(WebDriver driver) {
-        super(driver);
-    }
-
+    public static String getExpectedPageTitle() { return expectedPageTitle; }
 
     public void switchTo(String category) {
         waitFor(By.xpath(String.format(sidePanelCategoryLink, category)));
@@ -79,39 +72,32 @@ public class FieldAndFacilitiesPage extends BasePage {
     }
 
     public void checkSorting() {
-
         wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(gridHeader));
         List<WebElement> columns = driver.findElements(gridHeader);
 
         int count = 1;
 
-        for (WebElement header : columns
-                ) {
+        for (WebElement header : columns) {
             if (!header.getText().equals("")) {
                 System.out.println("Clicking header... " + header.getText());
                 header.click();
                 System.out.println("Waiting for coulumnData..." + String.format(columData, count));
                 List<WebElement> columnDataZ = driver.findElements(By.xpath(String.format(columData, count)));
                 List<String> strings = new ArrayList<String>();
-
                 for (WebElement e : columnDataZ
                         ) {
                     strings.add(e.getText());
                 }
-
                 for (String s : strings
                         ) {
                     System.out.println("Actual: " + s);
                 }
-
                 List<String> tmp = strings;
                 Collections.sort(tmp);
-
                 for (String s : tmp
                         ) {
                     System.out.println("Expected: " + s);
                 }
-
                 Assert.assertEquals(tmp, strings);
                 System.out.println("------------------------------------");
                 System.out.println(count);

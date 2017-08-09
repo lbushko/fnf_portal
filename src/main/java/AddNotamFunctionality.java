@@ -89,7 +89,7 @@ public class AddNotamFunctionality extends BasePage {
 
     public void selectDataRow() {
         int number;
-        if (this.category.equals("AIRPORT PAIR")) { number = 2; } else { number = 1; }
+        if (!category.equals("AIRPORT PAIR")) { number = 1; } else { number = 2; }
         dataRow = String.format(dataRow, number);
         waitFor(By.xpath(dataRow));
         clickOn(By.xpath(dataRow));
@@ -115,7 +115,7 @@ public class AddNotamFunctionality extends BasePage {
 
     private void callSecondaryPanel() {
         int number;
-        if (this.category.equals("AIRPORT PAIR")) { number = 2; } else { number = 1; }
+        if (!category.equals("AIRPORT PAIR")) { number = 1; } else { number = 2; }
         waitFor(By.xpath(String.format(addEquipmentButton, number)));
         clickOn(By.xpath(String.format(addEquipmentButton, number)));
         waitFor(By.xpath(equipmentsTable));
@@ -135,7 +135,6 @@ public class AddNotamFunctionality extends BasePage {
         int rnd = getRandomNumber(1, driver.findElements(By.xpath(expiresInDropDown)).size());
         clickOn(By.xpath(expiresInDropDown + "["+rnd+"]"));
         String expiresIn = wait.until(ExpectedConditions.presenceOfElementLocated(endDateField)).getAttribute("value");
-
         if (expiresIn.equals("[]") || expiresIn.equals("")){expiresIn = "NEVER";}
         else {
             expiresIn = new SimpleDateFormat("MM/dd/yy").format(new SimpleDateFormat("MM/dd/yyyy").parse(expiresIn));
@@ -160,7 +159,6 @@ public class AddNotamFunctionality extends BasePage {
         while (isElementPresent(By.xpath("notamGridRow"))) {
             cancelNotam();
         }
-
     }
 
     public void cancelNotam() {
@@ -174,5 +172,4 @@ public class AddNotamFunctionality extends BasePage {
         clickOn(closeNotamCanceledAlertButton);
         wait.until(ExpectedConditions.invisibilityOfElementLocated(closeNotamCanceledAlertButton));
     }
-
 }
