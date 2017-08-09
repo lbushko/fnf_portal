@@ -142,6 +142,9 @@ public class FieldAndFacilitiesPage extends BasePage {
         WebElement element = driver.findElement(By.xpath(lastDataRow));
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
 
+        System.out.println("expiresIn: " + expiresIn);
+        System.out.println("in table: " + driver.findElement(By.xpath(String.format(lastDataRowCell, columnExpirationIndex))).getText());
+
         Assert.assertEquals(notamText, driver.findElement(By.xpath(String.format(lastDataRowCell, columnNotamindex))).getText());
         Assert.assertEquals(expiresIn, driver.findElement(By.xpath(String.format(lastDataRowCell, columnExpirationIndex))).getText());
         clickOn(By.xpath(lastDataRow));

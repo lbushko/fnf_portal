@@ -1,6 +1,8 @@
 import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -127,13 +129,17 @@ public class AddNotamFunctionality extends BasePage {
         startDate.sendKeys(getRandomDate());
     }
 
-    public String selectExpiresIn() throws InterruptedException {
+    public String selectExpiresIn() throws InterruptedException, ParseException {
         waitFor(expiresInButton);
         clickOn(expiresInButton);
         int rnd = getRandomNumber(1, driver.findElements(By.xpath(expiresInDropDown)).size());
         clickOn(By.xpath(expiresInDropDown + "["+rnd+"]"));
         String expiresIn = wait.until(ExpectedConditions.presenceOfElementLocated(endDateField)).getAttribute("value");
+
         if (expiresIn.equals("[]") || expiresIn.equals("")){expiresIn = "NEVER";}
+        else {
+            expiresIn = new SimpleDateFormat("MM/dd/yy").format(new SimpleDateFormat("MM/dd/yyyy").parse(expiresIn));
+        }
         return expiresIn;
     }
 
