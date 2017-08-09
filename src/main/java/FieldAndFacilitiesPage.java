@@ -1,8 +1,11 @@
 import org.junit.Assert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -10,6 +13,7 @@ import java.util.List;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by ashendri on 01.08.2017.
@@ -24,6 +28,16 @@ public class FieldAndFacilitiesPage extends BasePage {
     //TODO переробити цей селект
 //    private String columData = "//div[@class='ng-isolate-scope']/div['%s']";
     private String columData = "//div[@class='ui-grid-canvas']/div/div/div[%s]/div";
+
+    private By startDateCalendarButton = By.xpath("//div[@class='row form-fields ng-scope']/div[@class='form-field date-time col-xs-3'][1]//button[@class='btn btn-default']");
+    private String startDateCalendarDay = "//table[@role='grid']/tbody/tr[%d]/td[%d]";
+    private By idColumnHeader = By.xpath("//div[contains(@role, 'columnheader')]//span[text()='ID']");
+    private String lastDataRow = "//div[@class='ui-grid-canvas']/div[last()]/div/div";
+    private String lastDataRowCell = "//div[@class='ui-grid-canvas']/div[last()]/div/div[%d]";
+    private By cancelNotamButton = By.xpath("//button[text()='CANCEL NOTAM']");
+    private By cancelYesButton = By.xpath("//button[text()=' YES ']");
+    private By notamCanceledAlert = By.xpath("//div[text()='Notam cancelled successfully!']");
+
 
     public static String expectedPageTitle = "WSI° Field & Facilities";
 
@@ -104,5 +118,48 @@ public class FieldAndFacilitiesPage extends BasePage {
             }
             count++;
         }
+    }
+
+    public void checkNotamCreatedAndCancel(String notamText, String expiresIn) {
+
+        List<WebElement> columnHeaders = driver.findElements(gridHeader);
+
+        List<String> strings = new ArrayList<String>();
+
+        for (WebElement e : columnHeaders
+                ) {
+            strings.add(e.getText());
+            System.out.println(e.getText());
+        }
+
+        int columnExpirationIndex = strings.indexOf("EXPIRATION") + 1;
+        int columnNotamindex = strings.indexOf("NOTAM") + 1;
+        System.out.println(columnExpirationIndex);
+
+        waitFor(idColumnHeader);
+        clickOn(idColumnHeader);
+
+        WebElement element = driver.findElement(By.xpath(lastDataRow));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
+
+        Assert.assertEquals(notamText, driver.findElement(By.xpath(String.format(lastDataRowCell, columnNotamindex))).getText());
+        Assert.assertEquals(expiresIn, driver.findElement(By.xpath(String.format(lastDataRowCell, columnExpirationIndex))).getText());
+        clickOn(By.xpath(lastDataRow));
+
+        String parentWindow = driver.getWindowHandle();
+
+        waitFor(cancelNotamButton);
+        clickOn(cancelNotamButton);
+
+        for (String handler : driver.getWindowHandles()
+                ) {
+            driver.switchTo().window(handler);
+        }
+        wait.until(ExpectedConditions.elementToBeClickable(cancelYesButton));
+        clickOn(cancelYesButton);
+        driver.switchTo().window(parentWindow);
+
+        waitFor(notamCanceledAlert);
+        assertTrue(isElementPresent(notamCanceledAlert));
     }
 }

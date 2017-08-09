@@ -100,12 +100,13 @@ public class AddNotamFunctionality extends BasePage {
         return equipmentName;
     }
 
-    public void publishNotam() {
+    public FieldAndFacilitiesPage publishNotam() {
         waitFor(publishButton);
         assertFalse(isElementPresent(notamCreatedAlert));
         driver.findElement(publishButton).click();
         waitFor(notamCreatedAlert);
         assertTrue(isElementPresent(notamCreatedAlert));
+        return new FieldAndFacilitiesPage(driver);
     }
 
     private void callSecondaryPanel() {
@@ -129,37 +130,9 @@ public class AddNotamFunctionality extends BasePage {
         clickOn(expiresInButton);
         int rnd = getRandomNumber(1, driver.findElements(By.xpath(expiresInDropDown)).size());
         clickOn(By.xpath(expiresInDropDown + "["+rnd+"]"));
-        String expiresIn = wait.until(ExpectedConditions.presenceOfElementLocated(endDateField)).getText();
-        if (expiresIn.equals("[]")){expiresIn = "NEVER";}
+        String expiresIn = wait.until(ExpectedConditions.presenceOfElementLocated(endDateField)).getAttribute("value");
+        if (expiresIn.equals("[]") || expiresIn.equals("")){expiresIn = "NEVER";}
         return expiresIn;
-    }
-
-    public void checkNotamCreatedAndCancel(String notamText, String expiresIn) {
-        waitFor(idColumnHeader);
-        clickOn(idColumnHeader);
-
-        WebElement element = driver.findElement(By.xpath(lastDataRow));
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
-
-        Assert.assertEquals(notamText, driver.findElement(By.xpath(lastDataRow + "[2]")).getText());
-        Assert.assertEquals(expiresIn, driver.findElement(By.xpath(lastDataRow + "[4]")).getText());
-        clickOn(By.xpath(lastDataRow));
-
-        String parentWindow = driver.getWindowHandle();
-
-        waitFor(cancelNotamButton);
-        clickOn(cancelNotamButton);
-
-        for (String handler : driver.getWindowHandles()
-                ) {
-            driver.switchTo().window(handler);
-        }
-        wait.until(ExpectedConditions.elementToBeClickable(cancelYesButton));
-        clickOn(cancelYesButton);
-        driver.switchTo().window(parentWindow);
-
-        waitFor(notamCanceledAlert);
-        assertTrue(isElementPresent(notamCanceledAlert));
     }
 
     public void cancelNotamCreation() {
@@ -170,5 +143,4 @@ public class AddNotamFunctionality extends BasePage {
         wait.until(ExpectedConditions.invisibilityOf(driver.findElement(cancelDialog)));
         assertFalse(driver.findElement(cancelDialog).isDisplayed());
     }
-
 }
