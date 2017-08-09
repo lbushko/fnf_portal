@@ -1,4 +1,3 @@
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import java.util.Arrays;
 
@@ -14,7 +13,7 @@ public class AddNotamTest extends BaseTest {
             addNotamFunctionality.selectNotamCategoryToCreate(Category);
             addNotamFunctionality.selectAuthorizedBy(authorizedBy);
             addNotamFunctionality.selectStartDate();
-            addNotamFunctionality.selectExpiresIn();
+            String expiresIn = addNotamFunctionality.selectExpiresIn();
             String notamText = addNotamFunctionality.specifyNotamText();
             if (!Category.equals("general")) {
                 addNotamFunctionality.selectDataRow();
@@ -23,10 +22,8 @@ public class AddNotamTest extends BaseTest {
                 addNotamFunctionality.selectDataRowFromSecondaryPanel();
             }
             addNotamFunctionality.publishNotam();
+            addNotamFunctionality.checkNotamCreatedAndCancel(notamText, expiresIn);
         }
-
-
-
 }
 
 
