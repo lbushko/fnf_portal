@@ -129,7 +129,9 @@ public class AddNotamFunctionality extends BasePage {
         clickOn(expiresInButton);
         int rnd = getRandomNumber(1, driver.findElements(By.xpath(expiresInDropDown)).size());
         clickOn(By.xpath(expiresInDropDown + "["+rnd+"]"));
-        return wait.until(ExpectedConditions.presenceOfElementLocated(endDateField)).getText();
+        String expiresIn = wait.until(ExpectedConditions.presenceOfElementLocated(endDateField)).getText();
+        if (expiresIn.equals("[]")){expiresIn = "NEVER";}
+        return expiresIn;
     }
 
     public void checkNotamCreatedAndCancel(String notamText, String expiresIn) {

@@ -24,9 +24,6 @@ public class AddNotamTest extends BaseTest {
             addNotamFunctionality.publishNotam();
             addNotamFunctionality.checkNotamCreatedAndCancel(notamText, expiresIn);
         }
-
-
-
 }
 
 
