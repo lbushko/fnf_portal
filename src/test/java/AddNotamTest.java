@@ -1,4 +1,3 @@
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import java.util.Arrays;
 
@@ -14,7 +13,8 @@ public class AddNotamTest extends BaseTest {
             addNotamFunctionality.selectNotamCategoryToCreate(Category);
             addNotamFunctionality.selectAuthorizedBy(authorizedBy);
             addNotamFunctionality.selectStartDate();
-            addNotamFunctionality.selectExpiresIn();
+            String expiresIn = addNotamFunctionality.selectExpiresIn();
+            System.out.println(expiresIn);
             String notamText = addNotamFunctionality.specifyNotamText();
             if (!Category.equals("general")) {
                 addNotamFunctionality.selectDataRow();
@@ -22,8 +22,8 @@ public class AddNotamTest extends BaseTest {
             if (Arrays.asList("airport", "airport pair", "flight").contains(Category)) {
                 addNotamFunctionality.selectDataRowFromSecondaryPanel();
             }
-            addNotamFunctionality.publishNotam();
-            addNotamFunctionality.checkNotamCreatedAndCancel(notamText);
+            FieldAndFacilitiesPage fieldAndFacilitiesPage = addNotamFunctionality.publishNotam();
+            fieldAndFacilitiesPage.checkNotamCreatedAndCancel(notamText, expiresIn);
         }
 
 
@@ -34,6 +34,7 @@ public class AddNotamTest extends BaseTest {
 //        AddNotamFunctionality addNotamFunctionality = new AddNotamFunctionality(driver);
 //        addNotamFunctionality.cancelAllNotams();
 //    }
+
 
 }
 

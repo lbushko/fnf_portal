@@ -32,6 +32,9 @@ public class AddNotamFunctionality extends BasePage {
 //    private By startDateCalendarButton = By.xpath("//div[@class='row form-fields ng-scope']/div[@class='form-field date-time col-xs-3'][1]//button[@class='btn btn-default']");
 //    private String startDateCalendarDay = "//table[@role='grid']/tbody/tr[%d]/td[%d]";
     private By updateColumnHeader = By.xpath("//div[contains(@role, 'columnheader')]//span[text()='Updated']");
+    private By startDateCalendarButton = By.xpath("//div[@class='row form-fields ng-scope']/div[@class='form-field date-time col-xs-3'][1]//button[@class='btn btn-default']");
+    private String startDateCalendarDay = "//table[@role='grid']/tbody/tr[%d]/td[%d]";
+    private By idColumnHeader = By.xpath("//div[contains(@role, 'columnheader')]//span[text()='ID']");
     private String lastDataRow = "//div[@class='ui-grid-canvas']/div[last()]/div/div";
     private By cancelNotamButton = By.xpath("//button[text()='CANCEL NOTAM']");
     private By cancelYesButton = By.xpath("//button[text()=' YES ']");
@@ -42,6 +45,8 @@ public class AddNotamFunctionality extends BasePage {
 
     private String notamGridRow = "//div[contains(@class, 'ui-grid-row')]";
     private By closeNotamCanceledAlertButton = By.xpath("//button[text()='×']");
+
+    private By endDateField = By.xpath("//input[@name='endDate']");
 
 
 
@@ -97,12 +102,13 @@ public class AddNotamFunctionality extends BasePage {
         return equipmentName;
     }
 
-    public void publishNotam() {
+    public FieldAndFacilitiesPage publishNotam() {
         waitFor(publishButton);
         assertFalse(isElementPresent(notamCreatedAlert));
         driver.findElement(publishButton).click();
         waitFor(notamCreatedAlert);
         assertTrue(isElementPresent(notamCreatedAlert));
+        return new FieldAndFacilitiesPage(driver);
     }
 
     private void callSecondaryPanel() {
@@ -121,38 +127,14 @@ public class AddNotamFunctionality extends BasePage {
         startDate.sendKeys(getRandomDate());
     }
 
-    public void selectExpiresIn() {
+    public String selectExpiresIn() throws InterruptedException {
         waitFor(expiresInButton);
         clickOn(expiresInButton);
         int rnd = getRandomNumber(1, driver.findElements(By.xpath(expiresInDropDown)).size());
         clickOn(By.xpath(expiresInDropDown + "["+rnd+"]"));
-    }
-
-    public void checkNotamCreatedAndCancel(String notamText) {
-        waitFor(updateColumnHeader);
-        clickOn(updateColumnHeader);
-
-        WebElement element = driver.findElement(By.xpath(lastDataRow));
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
-
-        Assert.assertEquals(notamText, driver.findElement(By.xpath(lastDataRow + "[2]")).getText());
-        clickOn(By.xpath(lastDataRow));
-
-        String parentWindow = driver.getWindowHandle();
-
-        waitFor(cancelNotamButton);
-        clickOn(cancelNotamButton);
-
-        for (String handler : driver.getWindowHandles()
-                ) {
-            driver.switchTo().window(handler);
-        }
-        wait.until(ExpectedConditions.elementToBeClickable(cancelYesButton));
-        clickOn(cancelYesButton);
-        driver.switchTo().window(parentWindow);
-
-        waitFor(notamCanceledAlert);
-        assertTrue(isElementPresent(notamCanceledAlert));
+        String expiresIn = wait.until(ExpectedConditions.presenceOfElementLocated(endDateField)).getAttribute("value");
+        if (expiresIn.equals("[]") || expiresIn.equals("")){expiresIn = "NEVER";}
+        return expiresIn;
     }
 
     public void checkNotamNotCreated(String notamText) {
@@ -186,7 +168,5 @@ public class AddNotamFunctionality extends BasePage {
         clickOn(closeNotamCanceledAlertButton);
         wait.until(ExpectedConditions.invisibilityOfElementLocated(closeNotamCanceledAlertButton));
     }
-
-
 
 }
