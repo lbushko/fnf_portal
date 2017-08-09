@@ -14,6 +14,7 @@ public class AddNotamTest extends BaseTest {
             addNotamFunctionality.selectAuthorizedBy(authorizedBy);
             addNotamFunctionality.selectStartDate();
             String expiresIn = addNotamFunctionality.selectExpiresIn();
+            System.out.println(expiresIn);
             String notamText = addNotamFunctionality.specifyNotamText();
             if (!Category.equals("general")) {
                 addNotamFunctionality.selectDataRow();
@@ -21,8 +22,8 @@ public class AddNotamTest extends BaseTest {
             if (Arrays.asList("airport", "airport pair", "flight").contains(Category)) {
                 addNotamFunctionality.selectDataRowFromSecondaryPanel();
             }
-            addNotamFunctionality.publishNotam();
-            addNotamFunctionality.checkNotamCreatedAndCancel(notamText, expiresIn);
+            FieldAndFacilitiesPage fieldAndFacilitiesPage = addNotamFunctionality.publishNotam();
+            fieldAndFacilitiesPage.checkNotamCreatedAndCancel(notamText, expiresIn);
         }
 }
 
