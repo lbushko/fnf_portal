@@ -6,6 +6,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -31,16 +32,8 @@ public class AddNotamFunctionality extends BasePage {
     private By expiresInButton = By.xpath("//button[@class='btn btn-default dropdown-toggle ng-binding ng-scope']");
     private String expiresInDropDown = "//ul[@aria-labelledby='dropdown-expireIn']//li";
     private By startDateField = By.name("startDate");
-//    private By startDateCalendarButton = By.xpath("//div[@class='row form-fields ng-scope']/div[@class='form-field date-time col-xs-3'][1]//button[@class='btn btn-default']");
-//    private String startDateCalendarDay = "//table[@role='grid']/tbody/tr[%d]/td[%d]";
-    private By updateColumnHeader = By.xpath("//div[contains(@role, 'columnheader')]//span[text()='Updated']");
-    private By startDateCalendarButton = By.xpath("//div[@class='row form-fields ng-scope']/div[@class='form-field date-time col-xs-3'][1]//button[@class='btn btn-default']");
-    private String startDateCalendarDay = "//table[@role='grid']/tbody/tr[%d]/td[%d]";
-    private By idColumnHeader = By.xpath("//div[contains(@role, 'columnheader')]//span[text()='ID']");
-    private String lastDataRow = "//div[@class='ui-grid-canvas']/div[last()]/div/div";
     private By cancelNotamButton = By.xpath("//button[text()='CANCEL NOTAM']");
     private By cancelYesButton = By.xpath("//button[text()=' YES ']");
-    private By notamCanceledAlert = By.xpath("//div[text()='Notam cancelled successfully!']");
     private By cancelButton = By.xpath("//button[contains(@class, 'cancel')]");
     private By cancelDialog = By.xpath("//div[contains(@class, 'modal-dialog')]");
     private By discardButton = By.xpath("//button[text()=' DISCARD ']");
@@ -49,7 +42,10 @@ public class AddNotamFunctionality extends BasePage {
     private By closeNotamCanceledAlertButton = By.xpath("//button[text()='×']");
 
     private By endDateField = By.xpath("//input[@name='endDate']");
+    private By notamChangeReason = By.xpath("//textarea[@name='changeReason']");
 
+    private By checkBox = By.xpath("//span[@notam='create.newNotam']//input");
+    private String checkBoxElement = "//span[@notam='create.newNotam']/label[%d]/input";
 
 
     public AddNotamFunctionality(WebDriver driver) {super(driver);}
@@ -58,11 +54,11 @@ public class AddNotamFunctionality extends BasePage {
         return new SimpleDateFormat("yyyy.MM.dd-HH:mm:ss").format(Calendar.getInstance().getTime());
     }
 
-    protected String getRandomDate() {
+    protected String getRandomDate(int min, int max) {
         Date currentDate = new Date();
         Calendar cal = Calendar.getInstance();
         cal.setTime(currentDate);
-        cal.add(Calendar.DATE, getRandomNumber(0, 5));
+        cal.add(Calendar.DATE, getRandomNumber(min, max));
         return new SimpleDateFormat("MM/dd/yyyy").format(cal.getTime());
     }
 
@@ -81,9 +77,11 @@ public class AddNotamFunctionality extends BasePage {
         assertEquals(driver.findElement(authorizedByDropdown).getText(), authorizedBy);
     }
 
-    public String specifyNotamText() {
-        String notamText = getCurrentTime();
-        driver.findElement(notamTextInput).sendKeys(notamText);
+    public String specifyNotamText(String status) {
+        String notamText = status+" "+getCurrentTime();
+        WebElement field = driver.findElement(notamTextInput);
+        field.clear();
+        field.sendKeys(notamText);
         return notamText;
     }
 
@@ -126,7 +124,22 @@ public class AddNotamFunctionality extends BasePage {
         waitFor(startDateField);
         WebElement startDate = driver.findElement(startDateField);
         startDate.clear();
-        startDate.sendKeys(getRandomDate());
+        startDate.sendKeys(getRandomDate(0,5));
+    }
+
+    public String selectEndDate() throws ParseException {
+        waitFor(endDateField);
+        WebElement endDate = driver.findElement(endDateField);
+        endDate.clear();
+        endDate.sendKeys(getRandomDate(5, 10));
+
+        String expiresIn = wait.until(ExpectedConditions.presenceOfElementLocated(endDateField)).getAttribute("value");
+
+        if (expiresIn.equals("[]") || expiresIn.equals("")){expiresIn = "NEVER";}
+        else {
+            expiresIn = new SimpleDateFormat("MM/dd/yy").format(new SimpleDateFormat("MM/dd/yyyy").parse(expiresIn));
+        }
+        return expiresIn;
     }
 
     public String selectExpiresIn() throws InterruptedException, ParseException {
@@ -171,5 +184,21 @@ public class AddNotamFunctionality extends BasePage {
         waitFor(closeNotamCanceledAlertButton);
         clickOn(closeNotamCanceledAlertButton);
         wait.until(ExpectedConditions.invisibilityOfElementLocated(closeNotamCanceledAlertButton));
+    }
+
+    public String specifyChangeReason(){
+        String notamText = "SOME REASON";
+        WebElement field = driver.findElement(notamChangeReason);
+        field.clear();
+        field.sendKeys(notamText);
+        return notamText;
+    }
+
+    public void selectCheckBox(){
+        int checkBoxCount = wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(checkBox)).size();
+        for (int i=1; i <= getRandomNumber(1, checkBoxCount); i++){
+            WebElement element = driver.findElement(By.xpath(String.format(checkBoxElement, getRandomNumber(1, checkBoxCount))));
+            if (!element.isSelected()){element.click();}
+        }
     }
 }

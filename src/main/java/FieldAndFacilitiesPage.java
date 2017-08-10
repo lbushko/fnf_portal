@@ -28,16 +28,19 @@ public class FieldAndFacilitiesPage extends BasePage {
     //TODO переробити цей селект
 //    private String columData = "//div[@class='ng-isolate-scope']/div['%s']";
     private String columData = "//div[@class='ui-grid-canvas']/div/div/div[%s]/div";
-
-    private By startDateCalendarButton = By.xpath("//div[@class='row form-fields ng-scope']/div[@class='form-field date-time col-xs-3'][1]//button[@class='btn btn-default']");
-    private String startDateCalendarDay = "//table[@role='grid']/tbody/tr[%d]/td[%d]";
     private By idColumnHeader = By.xpath("//div[contains(@role, 'columnheader')]//span[text()='ID']");
     private String lastDataRow = "//div[@class='ui-grid-canvas']/div[last()]/div/div";
     private String lastDataRowCell = "//div[@class='ui-grid-canvas']/div[last()]/div/div[%d]";
     private By cancelNotamButton = By.xpath("//button[text()='CANCEL NOTAM']");
     private By cancelYesButton = By.xpath("//button[text()=' YES ']");
     private By notamCanceledAlert = By.xpath("//div[text()='Notam cancelled successfully!']");
+
+    private By dublicateNotamButton = By.xpath("//button[text()='DUPLICATE NOTAM']");
+    private By updateNotamButton = By.xpath("//button[text()='UPDATE NOTAM']");
+    private By notamUpdatedAlert = By.xpath("//div[text()='Notam updated successfully!']");
+
     private static String expectedPageTitle = "WSI° Field & Facilities";
+
 
     public FieldAndFacilitiesPage(WebDriver driver) { super(driver); }
 
@@ -106,6 +109,15 @@ public class FieldAndFacilitiesPage extends BasePage {
         }
     }
 
+    public void clickLasDataRow(){
+        waitFor(idColumnHeader);
+        clickOn(idColumnHeader);
+        WebElement element = driver.findElement(By.xpath(lastDataRow));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath(lastDataRow)));
+        clickOn(By.xpath(lastDataRow));
+    }
+
     public void checkNotamCreatedAndCancel(String notamText, String expiresIn) {
 
         List<WebElement> columnHeaders = driver.findElements(gridHeader);
@@ -122,18 +134,13 @@ public class FieldAndFacilitiesPage extends BasePage {
         int columnNotamindex = strings.indexOf("NOTAM") + 1;
         System.out.println(columnExpirationIndex);
 
-        waitFor(idColumnHeader);
-        clickOn(idColumnHeader);
-
-        WebElement element = driver.findElement(By.xpath(lastDataRow));
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
+        clickLasDataRow();
 
         System.out.println("expiresIn: " + expiresIn);
         System.out.println("in table: " + driver.findElement(By.xpath(String.format(lastDataRowCell, columnExpirationIndex))).getText());
 
         Assert.assertEquals(notamText, driver.findElement(By.xpath(String.format(lastDataRowCell, columnNotamindex))).getText());
         Assert.assertEquals(expiresIn, driver.findElement(By.xpath(String.format(lastDataRowCell, columnExpirationIndex))).getText());
-        clickOn(By.xpath(lastDataRow));
 
         String parentWindow = driver.getWindowHandle();
 
@@ -150,5 +157,19 @@ public class FieldAndFacilitiesPage extends BasePage {
 
         waitFor(notamCanceledAlert);
         assertTrue(isElementPresent(notamCanceledAlert));
+    }
+
+    public AddNotamFunctionality clickDuplicateNotam(){
+        clickLasDataRow();
+        waitFor(dublicateNotamButton);
+        clickOn(dublicateNotamButton);
+        return new AddNotamFunctionality(driver);
+    }
+
+    public void clickUpdateNotam(){
+        waitFor(updateNotamButton);
+        clickOn(updateNotamButton);
+        waitFor(notamUpdatedAlert);
+        assertTrue(isElementPresent(notamUpdatedAlert));
     }
 }

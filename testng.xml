@@ -8,6 +8,8 @@
             <class name="FieldAndFacilitiesPageNavigationTest"></class>
             <class name="AddNotamTest"></class>
             <class name="DiscardAddNotamTest"></class>
+            <class name="DuplicateNotamTest"></class>
+            <class name="UpdateNotamTest"></class>
         </classes>
     </test>
 </suite>
