@@ -37,25 +37,25 @@ public class NotamSortingFunctionalityTest extends BaseTest {
         NotamsSortingFunctionality notamsSortingFunctionality = new NotamsSortingFunctionality(driver);
 
         List<String> columnValuesUnsorted = notamsSortingFunctionality.getColumnContent(Column);
-        notamsSortingFunctionality.printList("unsorted", columnValuesUnsorted);
+//        notamsSortingFunctionality.printList("unsorted", columnValuesUnsorted);
 
         String sortingOrder = notamsSortingFunctionality.getSortingOrder(Column);
 
         List<String> columnValuesSortedFromUi = notamsSortingFunctionality.getColumnContent(Column);
-        notamsSortingFunctionality.printList("sorted from ui", columnValuesSortedFromUi);
+//        notamsSortingFunctionality.printList("sorted from ui", columnValuesSortedFromUi);
 
-        List<String> columnValuesSortedProgrammatically = notamsSortingFunctionality.sortNotams(columnValuesUnsorted, sortingOrder);
-        notamsSortingFunctionality.printList("sorted programmatically", columnValuesSortedProgrammatically);
+        List<String> columnValuesSortedProgrammatically = notamsSortingFunctionality.sortNotamsProgrammatically(columnValuesUnsorted, sortingOrder);
+//        notamsSortingFunctionality.printList("sorted programmatically", columnValuesSortedProgrammatically);
 
         assertEquals(columnValuesSortedFromUi, columnValuesSortedProgrammatically);
 
         sortingOrder = notamsSortingFunctionality.getSortingOrder(Column);
 
         columnValuesSortedFromUi = notamsSortingFunctionality.getColumnContent(Column);
-        notamsSortingFunctionality.printList("sorted from ui", columnValuesSortedFromUi);
+//        notamsSortingFunctionality.printList("sorted from ui", columnValuesSortedFromUi);
 
-        columnValuesSortedProgrammatically = notamsSortingFunctionality.sortNotams(columnValuesUnsorted, sortingOrder);
-        notamsSortingFunctionality.printList("sorted programmatically", columnValuesSortedProgrammatically);
+        columnValuesSortedProgrammatically = notamsSortingFunctionality.sortNotamsProgrammatically(columnValuesUnsorted, sortingOrder);
+//        notamsSortingFunctionality.printList("sorted programmatically", columnValuesSortedProgrammatically);
 
         assertEquals(columnValuesSortedFromUi, columnValuesSortedProgrammatically);
 

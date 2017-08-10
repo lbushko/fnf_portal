@@ -27,6 +27,8 @@ public class NotamsSortingFunctionality extends BasePage {
         return columnValues;
     }
 
+
+
     public String getSortingOrder(String columnName) {
         String order = "";
         waitFor(By.xpath(String.format(columnHeader, columnName)));
@@ -39,7 +41,7 @@ public class NotamsSortingFunctionality extends BasePage {
         return order;
     }
 
-    public List sortNotams(List notams, String order) {
+    public List sortNotamsProgrammatically(List notams, String order) {
         if (order.equals("up")) {
             Collections.sort(notams);
         } else if (order.equals("down")) {
