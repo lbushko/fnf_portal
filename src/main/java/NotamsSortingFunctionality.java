@@ -10,7 +10,6 @@ import java.util.*;
 public class NotamsSortingFunctionality extends BasePage {
 
     public NotamsSortingFunctionality(WebDriver driver) {super(driver);}
-
     public Map<String, Integer> notamColumns = ImmutableMap.of("ID", 1, "NOTAM", 2, "NOTAM Type", 3, "Expiration", 4, "Updated", 5);
 
     private String columnHeader = "//span[contains(@class, 'ui-grid-header-cell-label') and text()='%s']";
@@ -27,36 +26,30 @@ public class NotamsSortingFunctionality extends BasePage {
         return columnValues;
     }
 
-
-
-    public String getSortingOrder(String columnName) {
-        String order = "";
+    public List getNotamsSortedOnUi(String columnName, String order) {
         waitFor(By.xpath(String.format(columnHeader, columnName)));
         clickOn(By.xpath(String.format(columnHeader, columnName)));
-        if (isElementPresent(By.xpath(String.format(sortingArrow, "up")))) {
-            order = "up";
-        } else if (isElementPresent(By.xpath(String.format(sortingArrow, "down")))) {
-            order = "down";
-        }
-        return order;
+        if (order.equals("down")) { clickOn(By.xpath(String.format(columnHeader, columnName))); }
+        waitFor(By.xpath(String.format(sortingArrow, order)));
+        List<String> sortedNotams = getColumnContent(columnName);
+        printList("sorted on UI " + order, sortedNotams);
+        return sortedNotams;
     }
 
-    public List sortNotamsProgrammatically(List notams, String order) {
+    public List getNotamsSortedProgrammatically(List notams, String order) {
         if (order.equals("up")) {
             Collections.sort(notams);
         } else if (order.equals("down")) {
             Collections.sort(notams,Collections.reverseOrder());
         }
+        printList("sorted programmatically " + order, notams);
         return notams;
     }
 
-    public void printList(String comment, List list) {
+    private void printList(String comment, List list) {
         System.out.println("\n" + comment);
         for (Object value : list) {
             System.out.println(value);
         }
     }
-
-
-
 }

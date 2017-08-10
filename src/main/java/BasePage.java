@@ -31,6 +31,15 @@ public class BasePage {
         }
     }
 
+    public boolean isElementVisible(By locatorKey) {
+        try {
+            wait.until(ExpectedConditions.visibilityOf(driver.findElement(locatorKey)));
+            return true;
+        } catch (org.openqa.selenium.ElementNotVisibleException e) {
+            return false;
+        }
+    }
+
 
 
     protected void waitFor(By by) {
