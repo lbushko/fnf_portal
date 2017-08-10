@@ -14,6 +14,7 @@ public class AddNotamTest extends BaseTest {
             addNotamFunctionality.selectAuthorizedBy(authorizedBy);
             addNotamFunctionality.selectStartDate();
             String expiresIn = addNotamFunctionality.selectExpiresIn();
+            addNotamFunctionality.selectCheckBox();
             System.out.println(expiresIn);
             String notamText = addNotamFunctionality.specifyNotamText("NEW");
             if (!Category.equals("General")) {

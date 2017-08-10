@@ -6,6 +6,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -43,6 +44,8 @@ public class AddNotamFunctionality extends BasePage {
     private By endDateField = By.xpath("//input[@name='endDate']");
     private By notamChangeReason = By.xpath("//textarea[@name='changeReason']");
 
+    private By checkBox = By.xpath("//span[@notam='create.newNotam']//input");
+    private String checkBoxElement = "//span[@notam='create.newNotam']/label[%d]/input";
 
 
     public AddNotamFunctionality(WebDriver driver) {super(driver);}
@@ -189,5 +192,13 @@ public class AddNotamFunctionality extends BasePage {
         field.clear();
         field.sendKeys(notamText);
         return notamText;
+    }
+
+    public void selectCheckBox(){
+        int checkBoxCount = wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(checkBox)).size();
+        for (int i=1; i <= getRandomNumber(1, checkBoxCount); i++){
+            WebElement element = driver.findElement(By.xpath(String.format(checkBoxElement, getRandomNumber(1, checkBoxCount))));
+            if (!element.isSelected()){element.click();}
+        }
     }
 }
