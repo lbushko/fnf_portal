@@ -85,23 +85,45 @@ public class FieldAndFacilitiesPage extends BasePage {
                 System.out.println("Clicking header... " + header.getText());
                 header.click();
                 System.out.println("Waiting for coulumnData..." + String.format(columData, count));
-                List<WebElement> columnDataZ = driver.findElements(By.xpath(String.format(columData, count)));
-                List<String> strings = new ArrayList<String>();
-                for (WebElement e : columnDataZ
+                List<WebElement> columnData = driver.findElements(By.xpath(String.format(columData, count)));
+                List<String> stringsASC = new ArrayList<String>();
+                for (WebElement e : columnData
                         ) {
-                    strings.add(e.getText());
+                    stringsASC.add(e.getText());
                 }
-                for (String s : strings
+                for (String s : stringsASC
                         ) {
                     System.out.println("Actual: " + s);
                 }
-                List<String> tmp = strings;
-                Collections.sort(tmp);
-                for (String s : tmp
+                List<String> tmpASC = stringsASC;
+                Collections.sort(tmpASC);
+                for (String s : tmpASC
                         ) {
                     System.out.println("Expected: " + s);
                 }
-                Assert.assertEquals(tmp, strings);
+                Assert.assertEquals(tmpASC, stringsASC);
+                System.out.println("------------------------------------");
+                System.out.println(count);
+                System.out.println("Clicking header... " + header.getText());
+                header.click();
+                System.out.println("Waiting for coulumnData..." + String.format(columData, count));
+                List<WebElement> columnDataDESC = driver.findElements(By.xpath(String.format(columData, count)));
+                List<String> stringsDESC = new ArrayList<String>();
+                for (WebElement e : columnDataDESC
+                        ) {
+                    stringsDESC.add(e.getText());
+                }
+                for (String s : stringsDESC
+                        ) {
+                    System.out.println("DESC Actual: " + s);
+                }
+                List<String> tmpDESC = stringsDESC;
+                for (String s : tmpDESC
+                        ) {
+                    System.out.println("DESC Expected: " + s);
+                }
+                Collections.sort(tmpDESC,Collections.reverseOrder());
+                Assert.assertEquals(tmpDESC, stringsDESC);
                 System.out.println("------------------------------------");
                 System.out.println(count);
             }
