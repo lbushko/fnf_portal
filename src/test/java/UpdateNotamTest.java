@@ -6,7 +6,7 @@ public class UpdateNotamTest extends BaseTest {
     public void duplicateNotamTest(String Category) throws Exception {
         FieldAndFacilitiesPage fieldAndFacilitiesPage = logIn();
         fieldAndFacilitiesPage.switchTo(Category);
-        fieldAndFacilitiesPage.clickLasDataRow();
+        fieldAndFacilitiesPage.clickLastDataRow();
         AddNotamFunctionality addNotamFunctionality = new AddNotamFunctionality(driver);
         String expiresIn = addNotamFunctionality.selectEndDate();
         String notamText = addNotamFunctionality.specifyNotamText("UPDATE");

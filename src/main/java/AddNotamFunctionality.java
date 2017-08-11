@@ -70,9 +70,9 @@ public class AddNotamFunctionality extends BasePage {
     }
 
     public void selectAuthorizedBy(String authorizedBy) {
-        waitFor(authorizedByDropdown);
+        waitForClickability(authorizedByDropdown);
         clickOn(authorizedByDropdown);
-        waitFor(By.xpath(String.format(authorizersDropdown, authorizedBy)));
+        waitForClickability(By.xpath(String.format(authorizersDropdown, authorizedBy)));
         driver.findElement(By.xpath(String.format(authorizersDropdown, authorizedBy))).click();
         assertEquals(driver.findElement(authorizedByDropdown).getText(), authorizedBy);
     }
@@ -87,7 +87,7 @@ public class AddNotamFunctionality extends BasePage {
 
     public void selectDataRow() {
         int number;
-        if (!category.equals("AIRPORT PAIR")) { number = 1; } else { number = 2; }
+        if (!category.equals("Airport Pair")) { number = 1; } else { number = 2; }
         dataRow = String.format(dataRow, number);
         waitFor(By.xpath(dataRow));
         clickOn(By.xpath(dataRow));
@@ -163,9 +163,10 @@ public class AddNotamFunctionality extends BasePage {
         waitFor(cancelButton);
         driver.findElement(cancelButton).click();
         waitFor(cancelDialog);
+        waitFor(discardButton);
         driver.findElement(discardButton).click();
+//        wait.until(ExpectedConditions.invisibilityOf(driver.findElement(discardButton)));
         wait.until(ExpectedConditions.invisibilityOf(driver.findElement(cancelDialog)));
-//        assertFalse(driver.findElement(cancelDialog).isDisplayed());
     }
 
     public void cancelAllNotams() {

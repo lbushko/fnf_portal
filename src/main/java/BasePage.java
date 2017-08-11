@@ -20,7 +20,6 @@ public class BasePage {
         wait = new WebDriverWait(driver, 10);
     }
 
-    public static String getExpectedPageTitle() {return expectedPageTitle;}
 
     public boolean isElementPresent(By locatorKey) {
         try {
@@ -30,16 +29,6 @@ public class BasePage {
             return false;
         }
     }
-
-    public boolean isElementVisible(By locatorKey) {
-        try {
-            wait.until(ExpectedConditions.visibilityOf(driver.findElement(locatorKey)));
-            return true;
-        } catch (org.openqa.selenium.ElementNotVisibleException e) {
-            return false;
-        }
-    }
-
 
 
     protected void waitFor(By by) {

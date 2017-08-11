@@ -20,14 +20,12 @@ public class AddNotamTest extends BaseTest {
             if (!Category.equals("General")) {
                 addNotamFunctionality.selectDataRow();
             }
-            if (Arrays.asList("Airport", "Airport pair", "Flight").contains(Category)) {
+            if (Arrays.asList("Airport", "Airport Pair", "Flight").contains(Category)) {
                 addNotamFunctionality.selectDataRowFromSecondaryPanel();
             }
             FieldAndFacilitiesPage fieldAndFacilitiesPage = addNotamFunctionality.publishNotam();
             fieldAndFacilitiesPage.checkNotamCreatedAndCancel(notamText, expiresIn);
         }
-
-
 
 //    @Test
 //    public void cancelNotam() throws Exception {
@@ -35,8 +33,6 @@ public class AddNotamTest extends BaseTest {
 //        AddNotamFunctionality addNotamFunctionality = new AddNotamFunctionality(driver);
 //        addNotamFunctionality.cancelAllNotams();
 //    }
-
-
 }
 
 

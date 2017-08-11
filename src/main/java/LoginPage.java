@@ -32,7 +32,6 @@ public class LoginPage extends BasePage {
         return new LoginPage(driver);
     }
 
-
     public void logIn(String username, String password, String customerId) {
         wait.until(ExpectedConditions.presenceOfElementLocated(logInDiv));
         driver.findElement(nameInput).sendKeys(username);
@@ -40,5 +39,4 @@ public class LoginPage extends BasePage {
         driver.findElement(customerIdInput).sendKeys(customerId);
         driver.findElement(logInButton).click();
     }
-
 }

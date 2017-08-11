@@ -19,7 +19,7 @@ public class DiscardAddNotamTest extends BaseTest {
         if (!Category.equals("General")) {
             addNotamFunctionality.selectDataRow();
         }
-        if (Arrays.asList("Airport", "Airport pair", "Flight").contains(Category)) {
+        if (Arrays.asList("Airport", "Airport Pair", "Flight").contains(Category)) {
             addNotamFunctionality.selectDataRowFromSecondaryPanel();
         }
         addNotamFunctionality.cancelNotamCreation();

@@ -4,7 +4,6 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Select;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -131,13 +130,20 @@ public class FieldAndFacilitiesPage extends BasePage {
         }
     }
 
-    public void clickLasDataRow(){
+    public void clickLastDataRow(){
         waitFor(idColumnHeader);
         clickOn(idColumnHeader);
-        WebElement element = driver.findElement(By.xpath(lastDataRow));
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
-        wait.until(ExpectedConditions.elementToBeClickable(By.xpath(lastDataRow)));
-        clickOn(By.xpath(lastDataRow));
+        if (isElementPresent(By.xpath(lastDataRow))) {
+            waitForClickability(By.xpath(lastDataRow));
+            WebElement element = driver.findElement(By.xpath(lastDataRow));
+            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
+//        wait.until(ExpectedConditions.elementToBeClickable(By.xpath(lastDataRow)));
+            clickOn(By.xpath(lastDataRow));
+        } else {
+            System.out.print("No NOTAMs available");
+        }
+
+
     }
 
     public void checkNotamCreatedAndCancel(String notamText, String expiresIn) {
@@ -156,7 +162,7 @@ public class FieldAndFacilitiesPage extends BasePage {
         int columnNotamindex = strings.indexOf("NOTAM") + 1;
         System.out.println(columnExpirationIndex);
 
-        clickLasDataRow();
+        clickLastDataRow();
 
         System.out.println("expiresIn: " + expiresIn);
         System.out.println("in table: " + driver.findElement(By.xpath(String.format(lastDataRowCell, columnExpirationIndex))).getText());
@@ -182,7 +188,7 @@ public class FieldAndFacilitiesPage extends BasePage {
     }
 
     public AddNotamFunctionality clickDuplicateNotam(){
-        clickLasDataRow();
+        clickLastDataRow();
         waitFor(dublicateNotamButton);
         clickOn(dublicateNotamButton);
         return new AddNotamFunctionality(driver);
