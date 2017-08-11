@@ -1,3 +1,5 @@
+package com.wsi.fnf.ui.automation.test;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.annotations.DataProvider;
@@ -13,7 +15,7 @@ public class LoginPageTest extends BaseTest {
     private By logInDiv = By.id("ff-login");
     private By failedLoginError = By.xpath("//div[contains(text(), 'Invalid username/password/customerId combination.')]");
 
-    @DataProvider(name = "credentials")
+    @DataProvider(name = "config.properties")
     public Object[][] credentials(){
         return new Object[][]{
                 {randomString(8), randomString(8), randomString(8)},
@@ -34,7 +36,7 @@ public class LoginPageTest extends BaseTest {
         assertTrue(title.contains("WSI") && title.contains("Field & Facilities"));
     }
 
-    @Test(dataProvider = "credentials")
+    @Test(dataProvider = "config.properties")
     public void invalidLogInTest(String username, String password, String customerId) throws Exception {
         LoginPage loginPage = new LoginPage(driver);
         loginPage.getOnPage();

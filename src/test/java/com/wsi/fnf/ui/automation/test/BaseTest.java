@@ -1,10 +1,16 @@
+package com.wsi.fnf.ui.automation.test;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.*;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.security.SecureRandom;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Properties;
 
 
 /**
@@ -14,28 +20,38 @@ public class BaseTest {
 
     static List<String> sidePanelCategories = Arrays.asList("All Active", "Airport Pair", "Airframe", "Equipment", "Flight", "Airport", "General", "Archive");
 
-    protected String validUsername = "ffportal";
-    protected String validPassword = "fusion";
-    protected String validCustomerId = "14301";
+    protected String validUsername;
+    protected String validPassword;
+    protected String validCustomerId;
 
     protected String authorizedBy = "FOQA";
 
     protected WebDriver driver;
     protected WebDriverWait wait;
+
+    Properties prop = new Properties();
+    InputStream input = null;
+
     static final String AB = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
     static SecureRandom rnd = new SecureRandom();
 
     @Parameters("browser")
     @BeforeClass
-    public void startUp(String browser) {
+    public void startUp(String browser) throws IOException {
         driver = Driver.getDriver(browser);
         wait = new WebDriverWait(driver, 10);
+
+        input = new FileInputStream("config.properties");
+        prop.load(input);
+        validUsername = prop.getProperty("validUsername");
+        validPassword = prop.getProperty("validPassword");
+        validCustomerId = prop.getProperty("validCustomerId");
     }
 
-//    @AfterClass
-//    public void tearDown() throws Exception {
-//        driver.quit();
-//    }
+    @AfterClass
+    public void tearDown() throws Exception {
+        driver.quit();
+    }
 
     @DataProvider(name = "Category")
     public Object[][] CategoryWithSecondPanel() {

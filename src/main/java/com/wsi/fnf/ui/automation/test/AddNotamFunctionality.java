@@ -1,3 +1,5 @@
+package com.wsi.fnf.ui.automation.test;
+
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 

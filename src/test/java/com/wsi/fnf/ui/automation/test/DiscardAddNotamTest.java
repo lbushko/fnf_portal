@@ -1,3 +1,5 @@
+package com.wsi.fnf.ui.automation.test;
+
 import org.testng.annotations.Test;
 import java.util.Arrays;
 

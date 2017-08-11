@@ -5,3 +5,4 @@ chromedriver*
 /fnf.webui.tests.iml
 /.idea/
 /allure-results/
+config.properties

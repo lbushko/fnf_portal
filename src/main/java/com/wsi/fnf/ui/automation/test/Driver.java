@@ -1,3 +1,5 @@
+package com.wsi.fnf.ui.automation.test;
+
 import com.gargoylesoftware.htmlunit.BrowserVersion;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;

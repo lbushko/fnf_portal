@@ -4,13 +4,13 @@
 <suite name="web.ui">
     <test name="all">
         <classes>
-            <class name="LoginPageTest"></class>
-            <class name="FieldAndFacilitiesPageNavigationTest"></class>
-            <class name="AddNotamTest"></class>
-            <class name="DiscardAddNotamTest"></class>
-            <class name="DuplicateNotamTest"></class>
-            <class name="UpdateNotamTest"></class>
-            <class name="NotamSortingFunctionalityTest"></class>
+            <class name="com.wsi.fnf.ui.automation.test.LoginPageTest"></class>
+            <class name="com.wsi.fnf.ui.automation.test.FieldAndFacilitiesPageNavigationTest"></class>
+            <class name="com.wsi.fnf.ui.automation.test.AddNotamTest"></class>
+            <class name="com.wsi.fnf.ui.automation.test.DiscardAddNotamTest"></class>
+            <class name="com.wsi.fnf.ui.automation.test.DuplicateNotamTest"></class>
+            <class name="com.wsi.fnf.ui.automation.test.UpdateNotamTest"></class>
+            <class name="com.wsi.fnf.ui.automation.test.NotamSortingFunctionalityTest"></class>
         </classes>
     </test>
 </suite>
