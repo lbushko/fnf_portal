@@ -10,6 +10,7 @@
             <class name="DiscardAddNotamTest"></class>
             <class name="DuplicateNotamTest"></class>
             <class name="UpdateNotamTest"></class>
+            <class name="NotamSortingFunctionalityTest"></class>
         </classes>
     </test>
 </suite>

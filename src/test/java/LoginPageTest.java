@@ -29,8 +29,9 @@ public class LoginPageTest extends BaseTest {
         LoginPage loginPage = new LoginPage(driver);
         loginPage.getOnPage();
         loginPage.logIn(validUsername, validPassword, validCustomerId);
-        wait.until(ExpectedConditions.titleIs(FieldAndFacilitiesPage.getExpectedPageTitle()));
-        assertEquals(FieldAndFacilitiesPage.getExpectedPageTitle(), driver.getTitle());
+        wait.until(ExpectedConditions.titleContains("Field & Facilities"));
+        String title = driver.getTitle();
+        assertTrue(title.contains("WSI") && title.contains("Field & Facilities"));
     }
 
     @Test(dataProvider = "credentials")
@@ -39,6 +40,7 @@ public class LoginPageTest extends BaseTest {
         loginPage.getOnPage();
         loginPage.logIn(username, password, customerId);
         wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(failedLoginError));
-        assertEquals(LoginPage.getExpectedPageTitle(), driver.getTitle());
+        String title = driver.getTitle();
+        assertTrue(title.contains("WSI") && title.contains("Field & Facilities Login"));
     }
 }

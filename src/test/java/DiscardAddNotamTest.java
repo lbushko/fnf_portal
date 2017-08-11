@@ -1,5 +1,4 @@
 import org.testng.annotations.Test;
-
 import java.util.Arrays;
 
 /**
@@ -15,6 +14,7 @@ public class DiscardAddNotamTest extends BaseTest {
         addNotamFunctionality.selectAuthorizedBy(authorizedBy);
         addNotamFunctionality.selectStartDate();
         addNotamFunctionality.selectExpiresIn();
+        addNotamFunctionality.selectCheckBox();
         String notamText = addNotamFunctionality.specifyNotamText("NEW");
         if (!Category.equals("General")) {
             addNotamFunctionality.selectDataRow();

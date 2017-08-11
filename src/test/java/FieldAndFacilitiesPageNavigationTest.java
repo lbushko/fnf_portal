@@ -21,18 +21,4 @@ public class FieldAndFacilitiesPageNavigationTest extends BaseTest {
             fieldAndFacilitiesPage.compareNotamsSidePanelAndTable(sidePanelCategories.get(i));
         }
     }
-
-    @Test
-    public void sortNotamTest() throws Exception {
-        LoginPage loginPage = new LoginPage(driver);
-        loginPage.getOnPage();
-        loginPage.logIn(validUsername, validPassword, validCustomerId);
-        FieldAndFacilitiesPage fieldAndFacilitiesPage = new FieldAndFacilitiesPage(driver);
-
-        for (int i = 0; i < sidePanelCategories.size(); i++) {
-            System.out.println("Назва розділу: " + sidePanelCategories.get(i));
-            fieldAndFacilitiesPage.switchTo(sidePanelCategories.get(i));
-            fieldAndFacilitiesPage.checkSorting();
-        }
-    }
 }
