@@ -24,8 +24,6 @@ public class FieldAndFacilitiesPage extends BasePage {
     private By selectedSidePanelLi = By.xpath("//ul[contains(@class, 'navbar-nav')][2]/li[contains(@class, 'selected')]");
     private By dataRow = By.xpath("//div[@ui-grid-row='row']");
     private By gridHeader = By.xpath("//div[contains(@role, 'columnheader')]//span[1]");
-    //TODO переробити цей селект
-//    private String columData = "//div[@class='ng-isolate-scope']/div['%s']";
     private String columData = "//div[@class='ui-grid-canvas']/div/div/div[%s]/div";
     private By idColumnHeader = By.xpath("//div[contains(@role, 'columnheader')]//span[text()='ID']");
     private String lastDataRow = "//div[@class='ui-grid-canvas']/div[last()]/div/div";
@@ -33,12 +31,14 @@ public class FieldAndFacilitiesPage extends BasePage {
     private By cancelNotamButton = By.xpath("//button[text()='CANCEL NOTAM']");
     private By cancelYesButton = By.xpath("//button[text()=' YES ']");
     private By notamCanceledAlert = By.xpath("//div[text()='Notam cancelled successfully!']");
-
     private By dublicateNotamButton = By.xpath("//button[text()='DUPLICATE NOTAM']");
     private By updateNotamButton = By.xpath("//button[text()='UPDATE NOTAM']");
     private By notamUpdatedAlert = By.xpath("//div[text()='Notam updated successfully!']");
 
     private static String expectedPageTitle = "WSI° Field & Facilities";
+
+    private By checkBox = By.xpath("//span[@notam='notam.selectedNotam']//input");
+    private String checkBoxElement = "//span[@notam='notam.selectedNotam']/label[%d]/input";
 
 
     public FieldAndFacilitiesPage(WebDriver driver) { super(driver); }
@@ -199,5 +199,13 @@ public class FieldAndFacilitiesPage extends BasePage {
         clickOn(updateNotamButton);
         waitFor(notamUpdatedAlert);
         assertTrue(isElementPresent(notamUpdatedAlert));
+    }
+
+    public void selectCheckBox(){
+        int checkBoxCount = wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(checkBox)).size();
+        for (int i=1; i <= getRandomNumber(1, checkBoxCount); i++){
+            WebElement element = driver.findElement(By.xpath(String.format(checkBoxElement, getRandomNumber(1, checkBoxCount))));
+            if (!element.isSelected()){element.click();}
+        }
     }
 }

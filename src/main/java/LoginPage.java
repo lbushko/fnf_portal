@@ -27,7 +27,8 @@ public class LoginPage extends BasePage {
 
     public LoginPage getOnPage() {
         driver.get(basePageUrl + "/login.html");
-        assertEquals(LoginPage.getExpectedPageTitle(), driver.getTitle());
+        String title = driver.getTitle();
+        assertTrue(title.contains("WSI") && title.contains("Field & Facilities Login"));
         assertTrue(driver.findElement(logInDiv).isDisplayed());
         return new LoginPage(driver);
     }

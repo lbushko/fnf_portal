@@ -1,4 +1,3 @@
-import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
@@ -6,7 +5,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -19,7 +17,8 @@ public class AddNotamFunctionality extends BasePage {
     private String notamTypeChooser = "//div[contains(@class, 'notam-type-chooser')]";
     private String notamOptionsToChoose = "//a[text()='%s']";
     private By authorizedByDropdown = By.id("dropdown-authorizers");
-    private String authorizersDropdown = "//ul/li/a[contains(text(), '%s')]";
+//    private By authorizedByDropdown = By.xpath("//button[@id='dropdown-authorizers']");
+    private String authorizersDropdown = "//ul/li/a[contains(text(), ' %s ')]";
     private By notamTextInput = By.xpath("//textarea[@name='text']");
     private String dataRow = "(//div[contains(@class, 'ui-grid-row')])[%d]";
     private String addEquipmentButton = "(//div[contains(@class, 'ui-grid-row')]//button)[%d]";
