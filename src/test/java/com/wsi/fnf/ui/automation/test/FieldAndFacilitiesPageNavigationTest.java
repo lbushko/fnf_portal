@@ -2,9 +2,6 @@ package com.wsi.fnf.ui.automation.test;
 
 import org.testng.annotations.Test;
 
-/**
- * Created by ashendri on 02.08.2017.
- */
 public class FieldAndFacilitiesPageNavigationTest extends BaseTest {
 
     @Test(dataProvider = "sidePanelCategory")
