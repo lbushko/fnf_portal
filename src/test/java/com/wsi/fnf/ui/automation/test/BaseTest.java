@@ -1,24 +1,16 @@
 package com.wsi.fnf.ui.automation.test;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.*;
-
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.security.SecureRandom;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Properties;
 
-
-/**
- * Created by ashendri on 01.08.2017.
- */
 public class BaseTest {
-
-    static List<String> sidePanelCategories = Arrays.asList("All Active", "Airport Pair", "Airframe", "Equipment", "Flight", "Airport", "General", "Archive");
 
     protected String validUsername;
     protected String validPassword;
@@ -39,8 +31,7 @@ public class BaseTest {
     @BeforeClass
     public void startUp(String browser) throws IOException {
         driver = Driver.getDriver(browser);
-        wait = new WebDriverWait(driver, 10);
-
+        wait = (WebDriverWait) new WebDriverWait(driver, 10).ignoring(WebDriverException.class);
         input = new FileInputStream("config.properties");
         prop.load(input);
         validUsername = prop.getProperty("validUsername");
@@ -53,8 +44,22 @@ public class BaseTest {
         driver.quit();
     }
 
+    @DataProvider(name = "sidePanelCategory")
+    public Object[][] sidePanelCategory() {
+        return new Object[][]{
+                {"All Active"},
+                {"Airport Pair"},
+                {"Airframe"},
+                {"Equipment"},
+                {"Flight"},
+                {"Airport"},
+                {"General"},
+                {"Archive"}
+        };
+    }
+
     @DataProvider(name = "Category")
-    public Object[][] CategoryWithSecondPanel() {
+    public Object[][] Category() {
         return new Object[][]{
                 {"Airport"},
                 {"Airport Pair"},
