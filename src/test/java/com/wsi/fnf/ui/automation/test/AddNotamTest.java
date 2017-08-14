@@ -8,32 +8,25 @@ import java.util.Arrays;
  */
 public class AddNotamTest extends BaseTest {
 
-        @Test(dataProvider = "Category")
-        public void addNotamTest(String Category) throws Exception {
-            logIn();
-            AddNotamFunctionality addNotamFunctionality = new AddNotamFunctionality(driver);
-            addNotamFunctionality.selectNotamCategoryToCreate(Category);
-            addNotamFunctionality.selectAuthorizedBy(authorizedBy);
-            addNotamFunctionality.selectStartDate();
-            String expiresIn = addNotamFunctionality.selectExpiresIn();
-            addNotamFunctionality.selectCheckBox();
-            String notamText = addNotamFunctionality.specifyNotamText("NEW");
-            if (!Category.equals("General")) {
-                addNotamFunctionality.selectDataRow();
-            }
-            if (Arrays.asList("Airport", "Airport Pair", "Flight").contains(Category)) {
-                addNotamFunctionality.selectDataRowFromSecondaryPanel();
-            }
-            FieldAndFacilitiesPage fieldAndFacilitiesPage = addNotamFunctionality.publishNotam();
-            fieldAndFacilitiesPage.checkNotamCreatedAndCancel(notamText, expiresIn);
+    @Test(dataProvider = "Category")
+    public void addNotamTest(String Category) throws Exception {
+        logIn();
+        AddNotamFunctionality addNotamFunctionality = new AddNotamFunctionality(driver);
+        addNotamFunctionality.selectNotamCategoryToCreate(Category);
+        addNotamFunctionality.selectAuthorizedBy(authorizedBy);
+        addNotamFunctionality.selectStartDate();
+        String expiresIn = addNotamFunctionality.selectExpiresIn();
+        addNotamFunctionality.selectCheckBox();
+        String notamText = addNotamFunctionality.specifyNotamText("NEW");
+        if (!Category.equals("General")) {
+            addNotamFunctionality.selectDataRow();
         }
-
-//    @Test
-//    public void cancelNotam() throws Exception {
-//        logIn();
-//        com.wsi.fnf.ui.automation.test.AddNotamFunctionality addNotamFunctionality = new com.wsi.fnf.ui.automation.test.AddNotamFunctionality(driver);
-//        addNotamFunctionality.cancelAllNotams();
-//    }
+        if (Arrays.asList("Airport", "Airport Pair", "Flight").contains(Category)) {
+            addNotamFunctionality.selectDataRowFromSecondaryPanel();
+        }
+        FieldAndFacilitiesPage fieldAndFacilitiesPage = addNotamFunctionality.publishNotam();
+        fieldAndFacilitiesPage.checkNotamCreatedAndCancel(notamText, expiresIn);
+    }
 }
 
 
