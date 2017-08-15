@@ -6,9 +6,6 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import static org.junit.Assert.assertTrue;
 
-/**
- * Created by ashendri on 01.08.2017.
- */
 public class LoginPage extends BasePage {
 
     private String basePageUrl = "https://admin-dev.flightfx.com/fnfportal";

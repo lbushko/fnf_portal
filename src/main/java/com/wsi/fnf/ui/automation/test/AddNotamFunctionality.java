@@ -6,12 +6,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-
 import static org.junit.Assert.*;
 
-/**
- * Created by ashendri on 03.08.2017.
- */
 public class AddNotamFunctionality extends BasePage {
 
     private By addNotamButton = By.xpath("//button[text()='ADD NEW']");

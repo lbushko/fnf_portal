@@ -6,9 +6,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import java.util.Random;
 
-/**
- * Created by ashendri on 01.08.2017.
- */
 public class BasePage {
 
     protected WebDriver driver;
