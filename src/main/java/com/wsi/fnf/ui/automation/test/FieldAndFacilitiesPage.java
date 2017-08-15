@@ -159,6 +159,8 @@ public class FieldAndFacilitiesPage extends BasePage {
         clickWhenReady(updateNotamButton);
         getWhenVisible(notamUpdatedAlert);
         assertTrue(getWhenVisible(notamUpdatedAlert).isDisplayed());
+        refreshPage();
+        waitForPageToBeReady();
     }
 
     public void selectCheckBox(){
