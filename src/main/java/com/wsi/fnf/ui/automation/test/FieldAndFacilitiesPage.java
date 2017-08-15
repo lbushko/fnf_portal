@@ -23,7 +23,7 @@ public class FieldAndFacilitiesPage extends BasePage {
     private String row = "//div[@class='ui-grid-canvas']/div[%d]/div/div[1]";
     private By gridHeader = By.xpath("//div[contains(@role, 'columnheader')]//span[1]");
     private String columData = "//div[@class='ui-grid-canvas']/div/div/div[%s]/div";
-    private By idColumnHeader = By.xpath("//div[contains(@role, 'columnheader')]//span[text()='ID']");
+    private By updatedColumnHeader = By.xpath("//div[contains(@role, 'columnheader')]//span[text()='Updated']");
     private String lastDataRow = "//div[@class='ui-grid-canvas']/div[last()]/div/div";
     private String lastDataRowCell = "//div[@class='ui-grid-canvas']/div[last()]/div/div[%d]";
     private By cancelNotamButton = By.xpath("//button[text()='CANCEL NOTAM']");
@@ -108,7 +108,7 @@ public class FieldAndFacilitiesPage extends BasePage {
 
     public void clickLastDataRow(){
         waitForPageToBeReady();
-        clickWhenReady(idColumnHeader);
+        clickWhenReady(updatedColumnHeader);
         if (getWhenVisible(By.xpath(lastDataRow)).isDisplayed()) {
             WebElement element = driver.findElement(By.xpath(lastDataRow));
             ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
@@ -116,11 +116,9 @@ public class FieldAndFacilitiesPage extends BasePage {
         } else {
             System.out.print("No NOTAMs available");
         }
-
-
     }
 
-    public void checkNotamCreatedAndCancel(String notamText, String expiresIn) {
+    public void checkNotamCreated(String notamText, String expiresIn) {
         List<WebElement> columnHeaders = wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(gridHeader));
         List<String> strings = new ArrayList<String>();
 
@@ -132,10 +130,11 @@ public class FieldAndFacilitiesPage extends BasePage {
         int columnExpirationIndex = strings.indexOf("EXPIRATION") + 1;
         int columnNotamindex = strings.indexOf("NOTAM") + 1;
 
-        clickLastDataRow();
         Assert.assertEquals(notamText, getWhenVisible(By.xpath(String.format(lastDataRowCell, columnNotamindex))).getText());
         Assert.assertEquals(expiresIn, getWhenVisible(By.xpath(String.format(lastDataRowCell, columnExpirationIndex))).getText());
+    }
 
+    public void deleteNotam(){
         String parentWindow = driver.getWindowHandle();
         clickWhenReady(cancelNotamButton);
 

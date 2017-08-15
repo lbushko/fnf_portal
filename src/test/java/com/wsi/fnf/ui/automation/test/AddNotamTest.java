@@ -25,7 +25,8 @@ public class AddNotamTest extends BaseTest {
             addNotamFunctionality.selectDataRowFromSecondaryPanel();
         }
         FieldAndFacilitiesPage fieldAndFacilitiesPage = addNotamFunctionality.publishNotam();
-        fieldAndFacilitiesPage.checkNotamCreatedAndCancel(notamText, expiresIn);
+        fieldAndFacilitiesPage.clickLastDataRow();
+        fieldAndFacilitiesPage.checkNotamCreated(notamText, expiresIn);
     }
 }
 

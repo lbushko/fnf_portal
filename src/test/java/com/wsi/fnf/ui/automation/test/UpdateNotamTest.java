@@ -15,5 +15,7 @@ public class UpdateNotamTest extends BaseTest {
         fieldAndFacilitiesPage.selectCheckBox();
         String notamChangeReason = addNotamFunctionality.specifyChangeReason();
         fieldAndFacilitiesPage.clickUpdateNotam();
+        fieldAndFacilitiesPage.checkNotamCreated(notamText, expiresIn);
+        fieldAndFacilitiesPage.deleteNotam();
     }
 }
