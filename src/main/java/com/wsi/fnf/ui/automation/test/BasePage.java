@@ -49,6 +49,11 @@ public class BasePage {
         });
     }
 
+    public void refreshPage(){
+        driver.navigate().refresh();
+        waitForPageToBeReady();
+    }
+
     public int getRandomNumber(int min, int max){
         return new Random().nextInt((max - min) + 1) + min;
     }

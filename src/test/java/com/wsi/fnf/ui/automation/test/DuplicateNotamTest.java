@@ -14,6 +14,8 @@ public class DuplicateNotamTest extends BaseTest{
         String notamText = addNotamFunctionality.specifyNotamText("DUPLICATE");
         addNotamFunctionality.selectCheckBox();
         addNotamFunctionality.publishNotam();
-        fieldAndFacilitiesPage.checkNotamCreatedAndCancel(notamText, expiresIn);
+        fieldAndFacilitiesPage.clickLastDataRow();
+        fieldAndFacilitiesPage.checkNotamCreated(notamText, expiresIn);
+        fieldAndFacilitiesPage.deleteNotam();
     }
 }
