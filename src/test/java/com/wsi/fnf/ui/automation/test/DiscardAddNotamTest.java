@@ -3,9 +3,6 @@ package com.wsi.fnf.ui.automation.test;
 import org.testng.annotations.Test;
 import java.util.Arrays;
 
-/**
- * Created by ashendri on 08.08.2017.
- */
 public class DiscardAddNotamTest extends BaseTest {
 
     @Test(dataProvider = "Category")

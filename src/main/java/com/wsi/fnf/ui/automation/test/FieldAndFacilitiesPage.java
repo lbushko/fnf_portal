@@ -11,9 +11,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
-/**
- * Created by ashendri on 01.08.2017.
- */
 public class FieldAndFacilitiesPage extends BasePage {
 
     private By topBinding = By.xpath("//h1[contains(@class, 'ng-binding')]");
