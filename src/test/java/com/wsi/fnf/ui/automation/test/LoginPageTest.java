@@ -7,9 +7,6 @@ import org.testng.annotations.Test;
 
 import static org.junit.Assert.*;
 
-/**
- * Created by ashendri on 01.08.2017.
- */
 public class LoginPageTest extends BaseTest {
 
     private By logInDiv = By.id("ff-login");

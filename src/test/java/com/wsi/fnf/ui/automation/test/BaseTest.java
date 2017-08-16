@@ -10,10 +10,6 @@ import java.io.InputStream;
 import java.security.SecureRandom;
 import java.util.Properties;
 
-
-/**
- * Created by ashendri on 01.08.2017.
- */
 public class BaseTest {
 
     protected String validUsername;
