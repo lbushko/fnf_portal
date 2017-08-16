@@ -25,6 +25,7 @@ public class FieldAndFacilitiesPage extends BasePage {
     private String lastDataRowCell = "//div[@class='ui-grid-canvas']/div[last()]/div/div[%d]";
     private By cancelNotamButton = By.xpath("//button[text()='CANCEL NOTAM']");
     private By cancelYesButton = By.xpath("//button[text()=' YES ']");
+    private By cancelYesButton2 = By.xpath("//button[@class='btn btn-action ng-binding']");
     private By notamCanceledAlert = By.xpath("//div[text()='Notam cancelled successfully!']");
     private By dublicateNotamButton = By.xpath("//button[text()='DUPLICATE NOTAM']");
     private By updateNotamButton = By.xpath("//button[text()='UPDATE NOTAM']");
@@ -141,8 +142,13 @@ public class FieldAndFacilitiesPage extends BasePage {
         }
 
         waitForPageToBeReady();
-        getWhenVisible(cancelYesButton);
-        clickWhenReady(cancelYesButton);
+        try {
+            getWhenVisible(cancelYesButton);
+            clickWhenReady(cancelYesButton);
+        } catch (WebDriverException e){
+            getWhenVisible(cancelYesButton2);
+            clickWhenReady(cancelYesButton2);
+        }
         driver.switchTo().window(parentWindow);
         waitForPageToBeReady();
         wait.until(ExpectedConditions.invisibilityOfElementLocated(cancelYesButton));

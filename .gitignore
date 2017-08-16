@@ -1,8 +1,8 @@
 .idea/
 target
 *.iml
-chromedriver*
 /fnf.webui.tests.iml
 /.idea/
 /allure-results/
 config.properties
+/allure-report
