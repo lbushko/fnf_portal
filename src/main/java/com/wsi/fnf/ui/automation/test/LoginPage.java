@@ -1,5 +1,6 @@
 package com.wsi.fnf.ui.automation.test;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
@@ -22,6 +23,7 @@ public class LoginPage extends BasePage {
 
     public static String getExpectedPageTitle() {return expectedPageTitle;}
 
+    @Step("Get login page")
     public LoginPage getOnPage() {
         wait.until(new ExpectedCondition<Boolean>() {
             public Boolean apply(WebDriver driver){
@@ -36,6 +38,7 @@ public class LoginPage extends BasePage {
         return new LoginPage(driver);
     }
 
+    @Step("Log in")
     public void logIn(String username, String password, String customerId) {
         wait.until(ExpectedConditions.presenceOfElementLocated(logInDiv));
         getWhenVisible(nameInput).sendKeys(username);

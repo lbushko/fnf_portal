@@ -1,5 +1,6 @@
 package com.wsi.fnf.ui.automation.test;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import java.text.ParseException;
@@ -53,6 +54,7 @@ public class AddNotamFunctionality extends BasePage {
         return new SimpleDateFormat("MM/dd/yyyy").format(cal.getTime());
     }
 
+    @Step("Select Notam category to create")
     public void selectNotamCategoryToCreate(String category) {
         waitForPageToBeReady();
         this.category = category.toUpperCase();
@@ -61,6 +63,7 @@ public class AddNotamFunctionality extends BasePage {
         waitForPageToBeReady();
     }
 
+    @Step("Select authorized by")
     public void selectAuthorizedBy(String authorizedBy) {
         waitForPageToBeReady();
         clickWhenReady(authorizedByDropdown);
@@ -69,6 +72,7 @@ public class AddNotamFunctionality extends BasePage {
         waitForPageToBeReady();
     }
 
+    @Step("Specify Notam text")
     public String specifyNotamText(String status) {
         String notamText = status+" "+getCurrentTime();
         WebElement field = getWhenVisible(notamTextInput);
@@ -77,6 +81,7 @@ public class AddNotamFunctionality extends BasePage {
         return notamText;
     }
 
+    @Step("Select data row")
     public void selectDataRow() {
         int number;
         if (!category.equals("Airport Pair")) { number = 1; } else { number = 2; }
@@ -84,6 +89,7 @@ public class AddNotamFunctionality extends BasePage {
         clickWhenReady(By.xpath(dataRow));
     }
 
+    @Step("Select from secondary panel")
     public String selectDataRowFromSecondaryPanel() {
         callSecondaryPanel();
         String equipmentName = getWhenVisible(By.xpath(equipmentsTable + "//td")).getText();
@@ -93,6 +99,7 @@ public class AddNotamFunctionality extends BasePage {
         return equipmentName;
     }
 
+    @Step("Click publish Notam")
     public FieldAndFacilitiesPage publishNotam() {
         clickWhenReady(publishButton);
         waitFor(notamCreatedAlert);
@@ -101,6 +108,7 @@ public class AddNotamFunctionality extends BasePage {
         return new FieldAndFacilitiesPage(driver);
     }
 
+    @Step("Click secondary panel")
     private void callSecondaryPanel() {
         int number;
         if (!category.equals("AIRPORT PAIR")) { number = 1; } else { number = 2; }
@@ -108,7 +116,7 @@ public class AddNotamFunctionality extends BasePage {
         waitFor(By.xpath(equipmentsTable));
     }
 
-
+    @Step("Select start date")
     public void selectStartDate() {
         waitFor(startDateField);
         WebElement startDate = driver.findElement(startDateField);
@@ -116,6 +124,7 @@ public class AddNotamFunctionality extends BasePage {
         startDate.sendKeys(getRandomDate(0,5));
     }
 
+    @Step("Select end date")
     public String selectEndDate() throws ParseException {
         WebElement endDate = getWhenVisible(endDateField);
         endDate.clear();
@@ -130,6 +139,7 @@ public class AddNotamFunctionality extends BasePage {
         return expiresIn;
     }
 
+    @Step("Select expires in")
     public String selectExpiresIn() throws InterruptedException, ParseException {
         clickWhenReady(expiresInButton);
         int rnd = getRandomNumber(1, wait.until((ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath(expiresInDropDown)))).size());
@@ -142,10 +152,12 @@ public class AddNotamFunctionality extends BasePage {
         return expiresIn;
     }
 
+    @Step("Check Notam created")
     public void checkNotamNotCreated(String notamText) {
         assertFalse(isElementPresent(By.xpath(String.format(notamGridRow + "//div[text()='%s'", notamText))));
     }
 
+    @Step("Cancel Notam creation")
     public void cancelNotamCreation() {
         clickWhenReady(cancelButton);
         getWhenVisible(cancelDialog);
@@ -160,6 +172,7 @@ public class AddNotamFunctionality extends BasePage {
         }
     }
 
+    @Step("Cancel Notam")
     public void cancelNotam() {
         clickWhenReady(By.xpath("notamGridRow"));
         clickWhenReady(cancelNotamButton);
@@ -169,6 +182,7 @@ public class AddNotamFunctionality extends BasePage {
         wait.until(ExpectedConditions.invisibilityOfElementLocated(closeNotamCanceledAlertButton));
     }
 
+    @Step("Specify change notam reason")
     public String specifyChangeReason(){
         String notamText = "SOME REASON";
         WebElement field = getWhenVisible(notamChangeReason);
@@ -177,6 +191,7 @@ public class AddNotamFunctionality extends BasePage {
         return notamText;
     }
 
+    @Step("Select check-box")
     public void selectCheckBox(){
         int checkBoxCount = wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(checkBox)).size();
         for (int i=1; i <= getRandomNumber(1, checkBoxCount); i++){
