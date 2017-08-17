@@ -1,5 +1,6 @@
 package com.wsi.fnf.ui.automation.test;
 
+import io.qameta.allure.Step;
 import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -39,11 +40,13 @@ public class FieldAndFacilitiesPage extends BasePage {
 
     public static String getExpectedPageTitle() { return expectedPageTitle; }
 
+    @Step("Switching to category")
     public void switchTo(String category) {
         clickWhenReady(By.xpath(String.format(sidePanelCategoryLink, category)));
         waitForPageToBeReady();
     }
 
+    @Step("Assert category title")
     public void checkSidePanelSelected(String category) {
         if (category.equals("Archive")) {
             assertThat(getWhenVisible(topBinding).getText(), containsString(String.format("%sD COMPANY NOTAMS", category).toUpperCase()));
@@ -53,6 +56,7 @@ public class FieldAndFacilitiesPage extends BasePage {
         assertThat(getWhenVisible(selectedSidePanelLi).getText(), containsString(category.toUpperCase()));
     }
 
+    @Step("Assert row count equals number near category name")
     public void compareNotamsSidePanelAndTable(String category) {
         int notamsNumber;
         if (!category.equals("Archive")) {
@@ -67,6 +71,7 @@ public class FieldAndFacilitiesPage extends BasePage {
         }
     }
 
+    @Step("Checking sorting ASC, DESC")
     public void checkSorting() {
         wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(gridHeader));
         List<WebElement> columns = driver.findElements(gridHeader);
@@ -104,6 +109,7 @@ public class FieldAndFacilitiesPage extends BasePage {
         }
     }
 
+    @Step("Clicking last data row")
     public void clickLastDataRow(){
         waitForPageToBeReady();
         clickWhenReady(updatedColumnHeader);
@@ -116,6 +122,7 @@ public class FieldAndFacilitiesPage extends BasePage {
         }
     }
 
+    @Step("Checking Notam created succesfuly")
     public void checkNotamCreated(String notamText, String expiresIn) {
         List<WebElement> columnHeaders = wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(gridHeader));
         List<String> strings = new ArrayList<String>();
@@ -132,6 +139,7 @@ public class FieldAndFacilitiesPage extends BasePage {
         Assert.assertEquals(expiresIn, getWhenVisible(By.xpath(String.format(lastDataRowCell, columnExpirationIndex))).getText());
     }
 
+    @Step("Delete Notam")
     public void deleteNotam(){
         String parentWindow = driver.getWindowHandle();
         clickWhenReady(cancelNotamButton);
@@ -155,12 +163,14 @@ public class FieldAndFacilitiesPage extends BasePage {
         assertTrue(getWhenVisible(notamCanceledAlert).isDisplayed());
     }
 
+    @Step("Click duplicate Notam")
     public AddNotamFunctionality clickDuplicateNotam(){
         clickLastDataRow();
         clickWhenReady(dublicateNotamButton);
         return new AddNotamFunctionality(driver);
     }
 
+    @Step("Click update Notam")
     public void clickUpdateNotam(){
         clickWhenReady(updateNotamButton);
         getWhenVisible(notamUpdatedAlert);
@@ -169,6 +179,7 @@ public class FieldAndFacilitiesPage extends BasePage {
         waitForPageToBeReady();
     }
 
+    @Step("Select check-box")
     public void selectCheckBox(){
         int checkBoxCount = wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(checkBox)).size();
         for (int i=1; i <= getRandomNumber(1, checkBoxCount); i++){

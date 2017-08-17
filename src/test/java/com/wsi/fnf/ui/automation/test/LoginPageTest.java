@@ -1,5 +1,6 @@
 package com.wsi.fnf.ui.automation.test;
 
+import io.qameta.allure.Description;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.annotations.DataProvider;
@@ -23,6 +24,7 @@ public class LoginPageTest extends BaseTest {
         };
     }
 
+    @Description("Testing valid Log In functionality")
     @Test
     public void validLogInTest() throws Exception {
         LoginPage loginPage = new LoginPage(driver);
@@ -33,6 +35,7 @@ public class LoginPageTest extends BaseTest {
         assertTrue(title.contains("WSI") && title.contains("Field & Facilities"));
     }
 
+    @Description("Testing invalid Log In functionality")
     @Test(dataProvider = "config.properties")
     public void invalidLogInTest(String username, String password, String customerId) throws Exception {
         LoginPage loginPage = new LoginPage(driver);

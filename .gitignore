@@ -6,3 +6,4 @@ target
 /allure-results/
 config.properties
 /allure-report
+/allure-results

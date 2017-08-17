@@ -1,9 +1,11 @@
 package com.wsi.fnf.ui.automation.test;
 
+import io.qameta.allure.Description;
 import org.testng.annotations.Test;
 
 public class DuplicateNotamTest extends BaseTest{
 
+    @Description("Testing duplicate Notam functionality")
     @Test(dataProvider = "Category")
     public void duplicateNotamTest(String Category) throws Exception {
         FieldAndFacilitiesPage fieldAndFacilitiesPage = logIn();

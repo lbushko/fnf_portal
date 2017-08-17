@@ -1,9 +1,11 @@
 package com.wsi.fnf.ui.automation.test;
 
+import io.qameta.allure.Description;
 import org.testng.annotations.Test;
 
 public class FieldAndFacilitiesPageNavigationTest extends BaseTest {
 
+    @Description("Testing navigation functionality")
     @Test(dataProvider = "sidePanelCategory")
     public void navigateWithinFieldAndFacilitiesPageTest(String sidePanelCategory) throws Exception {
         LoginPage loginPage = new LoginPage(driver);

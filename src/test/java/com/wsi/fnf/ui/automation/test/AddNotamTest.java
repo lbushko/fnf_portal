@@ -1,10 +1,12 @@
 package com.wsi.fnf.ui.automation.test;
 
+import io.qameta.allure.Description;
 import org.testng.annotations.Test;
 import java.util.Arrays;
 
 public class AddNotamTest extends BaseTest {
 
+    @Description("Testing add Notam functionality")
     @Test(dataProvider = "Category")
     public void addNotamTest(String Category) throws Exception {
         logIn();
