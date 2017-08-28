@@ -19,7 +19,8 @@ public class FieldAndFacilitiesPage extends BasePage {
     private By selectedSidePanelLi = By.xpath("//ul[contains(@class, 'navbar-nav')][2]/li[contains(@class, 'selected')]");
     private By dataRow = By.xpath("//div[@ui-grid-row='row']");
     private String row = "//div[@class='ui-grid-canvas']/div[%d]/div/div[1]";
-    private By gridHeader = By.xpath("//div[contains(@role, 'columnheader')]//span[1]");
+//    private By gridHeader = By.xpath("//div[contains(@role, 'columnheader')]//span[1]");
+    private By gridHeader = By.xpath("//div[contains(@role, 'columnheader')]");
     private String columData = "//div[@class='ui-grid-canvas']/div/div/div[%s]/div";
     private By updatedColumnHeader = By.xpath("//div[contains(@role, 'columnheader')]//span[text()='Updated']");
     private String lastDataRow = "//div[@class='ui-grid-canvas']/div[last()]/div/div";
@@ -79,7 +80,7 @@ public class FieldAndFacilitiesPage extends BasePage {
         int count = 1;
         for (WebElement header : columns) {
             if (!header.getText().equals("")) {
-                header.click();
+                clickWhenReady(header);
                 List<WebElement> columnData = wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath(String.format(columData, count))));
                 List<String> stringsASC = new ArrayList<String>();
 
@@ -92,7 +93,7 @@ public class FieldAndFacilitiesPage extends BasePage {
                 Collections.sort(tmpASC);
                 Assert.assertEquals(tmpASC, stringsASC);
 
-                header.click();
+                clickWhenReady(header);
                 List<WebElement> columnDataDESC = wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath(String.format(columData, count))));
                 List<String> stringsDESC = new ArrayList<String>();
 
