@@ -113,7 +113,7 @@ public class AddNotamFunctionality extends BasePage {
         int number;
         if (!category.equals("AIRPORT PAIR")) { number = 1; } else { number = 2; }
         clickWhenReady(By.xpath(String.format(addEquipmentButton, number)));
-        waitFor(By.xpath(equipmentsTable));
+//        waitFor(By.xpath(equipmentsTable));
     }
 
     @Step("Select start date")
