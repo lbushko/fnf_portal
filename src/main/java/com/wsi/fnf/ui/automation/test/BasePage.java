@@ -26,9 +26,15 @@ public class BasePage {
         }
     }
 
-    protected void clickWhenReady(By locator){
-        WebElement element = wait.until(ExpectedConditions.elementToBeClickable(locator));
-        element.click();
+    protected void clickWhenReady(Object locator){
+        WebElement element=null;
+        if (locator instanceof By){ element = wait.until(ExpectedConditions.elementToBeClickable((By) locator));}
+        else if (locator instanceof WebElement){ element = wait.until(ExpectedConditions.elementToBeClickable((WebElement) locator));}
+        try {
+            element.click();
+        } catch (NoSuchElementException e) {
+            throw e;
+        }
     }
 
     protected WebElement getWhenVisible(By locator){
