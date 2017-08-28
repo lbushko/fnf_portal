@@ -92,7 +92,7 @@ public class AddNotamFunctionality extends BasePage {
     @Step("Select from secondary panel")
     public String selectDataRowFromSecondaryPanel() {
         callSecondaryPanel();
-        String equipmentName = getWhenVisible(By.xpath(equipmentsTable + "//td")).getText();
+        String equipmentName = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(equipmentsTable + "//td"))).getText();
         clickWhenReady(By.xpath(equipmentsTable + "//td"));
         clickWhenReady(updateEquipmentButton);
         wait.until(ExpectedConditions.invisibilityOf(driver.findElement(By.xpath(equipmentsTable))));
@@ -109,11 +109,11 @@ public class AddNotamFunctionality extends BasePage {
     }
 
     @Step("Click secondary panel")
-    private void callSecondaryPanel() {
+    public void callSecondaryPanel() {
         int number;
         if (!category.equals("AIRPORT PAIR")) { number = 1; } else { number = 2; }
         clickWhenReady(By.xpath(String.format(addEquipmentButton, number)));
-//        waitFor(By.xpath(equipmentsTable));
+        waitFor(By.xpath(equipmentsTable));
     }
 
     @Step("Select start date")
