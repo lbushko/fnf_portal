@@ -23,7 +23,7 @@ public class AddMoreNotams extends BaseTest{
                 addNotamFunctionality.selectDataRow();
             }
             if (Arrays.asList("Airport", "Airport Pair", "Flight").contains(Category)) {
-                addNotamFunctionality.selectDataRowFromSecondaryPanel();
+                addNotamFunctionality.callSecondaryPanel();
             }
             addNotamFunctionality.publishNotam();
             fieldAndFacilitiesPage.clickLastDataRow();
